@@ -4,7 +4,14 @@
 3. Fransiscus Emmanuel Bunaren - 1806173506
 4. Muhammad Fadhil Qorano - 1806173582
 
-Heroku app link : shopurvehicle.herokuapp.com
+## Heroku app link : 
+https://shopurvehicle.herokuapp.com
+
+## Wireframe & prototype link:
+https://www.figma.com/file/cTkecvrLsztKSYDIDLU9BZ/Untitled?node-id=0%3A1
+
+## Persona link:
+https://docs.google.com/document/d/1sBxSyA-5xCIO0_Wt9ztJj9hsuhEMfXgJZPr2Vfpme0o/edit?usp=sharing
 
 ## Description:
 shopurvehicle(SUV) app is an application that is focused on vehicle rents and tourist destinations. In this application,
