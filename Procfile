@@ -1,0 +1,1 @@
+web: gunicorn suv_rental.wsgi --log-file -

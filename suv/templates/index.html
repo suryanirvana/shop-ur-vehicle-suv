@@ -1,0 +1,27 @@
+{% load static %}
+
+<h1>SUV!</h1>
+<h2>Sell Ur Vechicle!</h2>
+
+
+<!---
+Avanza Animation
+by Fransiscus Emmanuel Bunaren
+-->
+<br/><br/>
+<div>
+<img src="/static/img/avanza.png" width="200" id="mobil" style="position:absolute;"></img>
+</div>
+
+<script>
+var pos = 0;
+
+setInterval(move,10);
+
+function move(){
+	pos += 1;
+	mobil.style.top = 100 + parseInt(Math.random() * 10);
+	mobil.style.left  = pos + "px";
+}
+</script>
+<!-- End of Animation -->
