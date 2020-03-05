@@ -305,17 +305,17 @@
 		</div>
 	
 		<div class="col-sm-7 section">
-			<h1 class="carTitle">Mercedes Benz</h1>
-			<h2 class="carSubTitle">G550 2019</h2>
-			<h3 class="price">$3,000/day</h3>
+			<h1 class="carTitle">{{ recomended_car.name }}</h1>
+			<h2 class="carSubTitle">{{ recomended_car.category }} - {{ recomended_car.year }}</h2>
+			<h3 class="price">Rp {{ recomended_car.price }}</h3>
 			<div class="row" style="padding-left:15px; margin-top:10vh;">
 				<div class="dot">
-					<h4 class="type">Calabasas</h4>
+					<h4 class="type">{{ recomended_car.city }}</h4>
 				</div>
 			</div>
 			<div class="row" style="padding-left:15px">
 				<div class="dot">
-					<h4 class="owner">Surya Nirvana</h4>
+					<h4 class="owner">{{ recomended_car.username }}</h4>
 				</div>
 			</div>
 		</div>
@@ -427,141 +427,40 @@
 		<div class="line"></div>
 	</div>
 	<div class="row" style="margin:auto;">
-		<!--similar 1-->
-		<div class="col-sm-4 similarBox">
-			<!--image-->
-			<div class="row" style="padding:15px">
-				<img class="similarImg" src="/static/img/testCar.jpg">
-			</div>
-			<!--title-->
-			<div class="row" style="margin-left:auto; margin-right:auto;">
-				<h1 class="similarTitle">Mercedez Benz</h1>
-				<h2 class="similarSubTitle">GG50-2019</h2>
-			</div>
-			<!--dots-->
-			<div class="row" style="padding-left:15px;">
-				<div class="dot">
-					<h4 class="type">SUV</h4>
+		{% for car in car_list %}
+			<div class="col-sm-4 similarBox">
+				<!--image-->
+				<div class="row" style="padding:15px">
+					<img class="similarImg" src="/static/img/testCar.jpg">
 				</div>
-			</div>
-			<div class="row" style="padding-left:15px">
-				<div class="dot">
-					<h4 class="type">Calabasas</h4>
+				<!--title-->
+				<div class="row" style="margin-left:auto; margin-right:auto;">
+					<h1 class="similarTitle">{{ car.name }}</h1>
+					<h2 class="similarSubTitle">{{ car.category }} - {{ car.year }}</h2>
 				</div>
-			</div>
-			<div class="row" style="padding-left:15px;">
-				<div class="dot">
-					<h4 class="type">$3,000</h4>
+				<!--dots-->
+				<div class="row" style="padding-left:15px;">
+					<div class="dot">
+						<h4 class="type">{{ car.name }}</h4>
+					</div>
 				</div>
-			</div>
-			<div class="row" style="padding-left:15px">
-				<div class="dot">
-					<h4 class="type">Surya Nirvana</h4>
+				<div class="row" style="padding-left:15px">
+					<div class="dot">
+						<h4 class="type">{{ car.city }}</h4>
+					</div>
 				</div>
-			</div>
-		</div>
-		
-		<!--similar 2-->
-		<div class="col-sm-4 similarBox">
-			<!--image-->
-			<div class="row" style="padding:15px">
-				<img class="similarImg" src="/static/img/testCar.jpg">
-			</div>
-			<!--title-->
-			<div class="row" style="margin-left:auto; margin-right:auto;">
-				<h1 class="similarTitle">Mercedez Benz</h1>
-				<h2 class="similarSubTitle">GG50-2019</h2>
-			</div>
-			<!--dots-->
-			<div class="row" style="padding-left:15px;">
-				<div class="dot">
-					<h4 class="type">SUV</h4>
+				<div class="row" style="padding-left:15px;">
+					<div class="dot">
+						<h4 class="type">Rp {{ car.price }}</h4>
+					</div>
 				</div>
-			</div>
-			<div class="row" style="padding-left:15px">
-				<div class="dot">
-					<h4 class="type">Calabasas</h4>
+				<div class="row" style="padding-left:15px">
+					<div class="dot">
+						<h4 class="type">{{ car.username }}</h4>
+					</div>
 				</div>
-			</div>
-			<div class="row" style="padding-left:15px;">
-				<div class="dot">
-					<h4 class="type">$3,000</h4>
-				</div>
-			</div>
-			<div class="row" style="padding-left:15px">
-				<div class="dot">
-					<h4 class="type">Surya Nirvana</h4>
-				</div>
-			</div>
-		</div>
-		
-		<!--similar 3-->
-		<div class="col-sm-4 similarBox">
-			<!--image-->
-			<div class="row" style="padding:15px">
-				<img class="similarImg" src="/static/img/testCar.jpg">
-			</div>
-			<!--title-->
-			<div class="row" style="margin-left:auto; margin-right:auto;">
-				<h1 class="similarTitle">Mercedez Benz</h1>
-				<h2 class="similarSubTitle">GG50-2019</h2>
-			</div>
-			<!--dots-->
-			<div class="row" style="padding-left:15px;">
-				<div class="dot">
-					<h4 class="type">SUV</h4>
-				</div>
-			</div>
-			<div class="row" style="padding-left:15px">
-				<div class="dot">
-					<h4 class="type">Calabasas</h4>
-				</div>
-			</div>
-			<div class="row" style="padding-left:15px;">
-				<div class="dot">
-					<h4 class="type">$3,000</h4>
-				</div>
-			</div>
-			<div class="row" style="padding-left:15px">
-				<div class="dot">
-					<h4 class="type" style="width:auto">Surya Nirvana</h4>
-				</div>
-			</div>
-		</div>
-		<!--similar 4-->
-		<div class="col-sm-4 similarBox">
-			<!--image-->
-			<div class="row" style="padding:15px">
-				<img class="similarImg" src="/static/img/testCar.jpg">
-			</div>
-			<!--title-->
-			<div class="row" style="margin-left:auto; margin-right:auto;">
-				<h1 class="similarTitle">Mercedez Benz</h1>
-				<h2 class="similarSubTitle">GG50-2019</h2>
-			</div>
-			<!--dots-->
-			<div class="row" style="padding-left:15px;">
-				<div class="dot">
-					<h4 class="type">SUV</h4>
-				</div>
-			</div>
-			<div class="row" style="padding-left:15px">
-				<div class="dot">
-					<h4 class="type">Calabasas</h4>
-				</div>
-			</div>
-			<div class="row" style="padding-left:15px;">
-				<div class="dot">
-					<h4 class="type">$3,000</h4>
-				</div>
-			</div>
-			<div class="row" style="padding-left:15px">
-				<div class="dot">
-					<h4 class="type" style="width:auto">Surya Nirvana</h4>
-				</div>
-			</div>
-		</div>
-		
+			</div>		
+		{% endfor %}
 	</div>
 	
 	<br><br><br><br><br><br><br><br>

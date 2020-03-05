@@ -87,4 +87,9 @@ class SUVTest(TestCase):
     def test_article_response(self):
         response = Client().get('/articles.html')
         self.assertEqual(response.status_code,200)
+
+    #Test Cars View
+    def test_cars_response(self):
+        response = Client().get('/cars.html')
+        self.assertEqual(response.status_code,200)
         
