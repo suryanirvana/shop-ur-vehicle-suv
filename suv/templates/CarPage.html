@@ -1,0 +1,234 @@
+<!doctype html>
+{% load static %}
+<html lang="en"><head>
+  <title>CarPage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+.title {
+	position: relative;
+	width: 263px;
+	height: 77px;
+	left: 79px;
+
+	font-family: Open Sans;
+	font-style: bold;
+	font-weight: 800;
+	font-size: 48px;
+	line-height: 77px;
+	letter-spacing: 0.11em;
+
+	color: #08154A;
+}
+
+.rectangle {
+	position: relative;
+	margin-left: 79px;
+	margin-bottom: 4vw;
+	height: 10px;
+	width: 200px;
+	background-color: #40D0CE;
+	border-radius: 50px;
+}
+
+.titleUnderline {
+	position: relative;
+	height: 10px;
+	padding-bottom: 5vw;
+	margin-left: 5vw;
+	margin-right: 5vw;
+	margin-bottom: 5vw;
+	
+	background: #40D0CE;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 50px;
+}
+
+.articleBox {
+	position: relative;
+	padding-bottom: 5vw;
+	margin-left: 5vw;
+	margin-right: 5vw;
+	margin-bottom: 5vw;
+	
+	background: #F0FAF9;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 50px;
+}
+
+.articleTitle {
+	position: relative;
+	margin-left: 1vw;
+	margin-top: 3vw;
+	margin-bottom: 0;
+
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 800;
+	font-size: 3.5vw;
+	line-height: 5vw;
+
+	color: #40D0CE;
+}
+
+.articleSubTitle {
+	position: relative;
+	margin-left: 1vw;
+	margin-top: 0;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 550;
+	font-size: 2.5vw;
+	line-height: 5vw;
+
+	color: #40D0CE;
+}
+
+.articleText {
+	position: relative;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 2.5vw;
+	line-height: 161.18%;
+}
+
+.row {
+	padding-left: 0;
+	padding-right: 5vw;
+}
+
+.carImg {
+	position: relative;
+	max-width: 100%;
+    max-height: 100%;
+	min-height:500px;
+	left: -10px;
+	
+	box-shadow: 0 5px #1C2E7C,
+				5px 0 #40D0CE;
+	border-radius: 0 50px 50px 0;
+}
+
+.carTitle {
+	position: relative;
+	margin-bottom: 0;
+	margin-left: 3vh;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 800;
+	font-size: 55px;
+	line-height: 60px;
+	
+	color: #40D0CE;
+}
+
+.carSubTitle {
+	position: relative;
+	margin-top: 0;
+	margin-left: 3vh;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 800;
+	font-size: 40px;
+	line-height: 60px;
+	
+	color: #40D0CE;
+}
+
+.price {
+	position: relative;
+	margin-top: 27px;
+	margin-left: 3vh;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 40px;
+
+	color: #909090;
+}
+
+.dot {
+	position: relative;
+	margin-left: 3vh;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	width: 35px;
+	height: 35px;
+	background-color: #C4C4C4;
+}
+
+.type {
+	position: relative;
+	margin-left: 55px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 32px;
+
+	color: #909090;
+}
+
+.owner {
+	position: relative;
+	width: 300px;
+	margin-left: 55px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 32px;
+
+	color: #40D0CE;
+}
+
+</style></head>
+
+<body style="overflow-x:hidden; background-color:#D8E7E6;">
+	
+	<div class="row">
+		<br><br><br><br><br><br><br><br><br><br><br>
+	</div>
+	
+	<div class="row" style="padding-bottom: 5vw">
+		<div class="col-sm-5 section">
+			<img class="carImg" src="/static/img/testCar.jpg"></img>
+		</div>
+	
+		<div class="col-sm-7 section">
+			<h1 class="carTitle">Mercedes Benz</h1>
+			<h2 class="carSubTitle">G550 2019</h2>
+			<h3 class="price">$3,000/day</h3>
+			<div class="row" style="padding-left:15px; margin-top:10vh;">
+				<div class="dot">
+					<h4 class="type">Calabasas</h4>
+				</div>
+			</div>
+			<div class="row" style="padding-left:15px">
+				<div class="dot">
+					<h4 class="owner">Surya Nirvana</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+	
+	</div>
+	
+</body>
+</html>
