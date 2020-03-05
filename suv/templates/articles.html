@@ -17,14 +17,15 @@
 		<h1 class="title">ARTICLES</h1>
 		<div class="rectangle"></div>
 	</div>
-	{% for article in article_list %}
-		<div style="max-height: 1000px; overflow-y: scroll;">
-			<div class="row articleBox">
-				<h1>{{ article.title }}</h1>
-				<h2>{{ article.date }}</h2>
-				<p>{{ article.content }}</p>
-			</div>
-		</div>
-	{% endfor %}
+	
+	<div style="max-height: 1000px; overflow-y: scroll;">
+		{% for article in article_list %}
+				<div class="row articleBox">
+					<h1 class="articleTitle">{{ article.title }}</h1>
+					<h2 class="articleSubTitle">{{ article.date }}</h2>
+					<p class="articleText">{{ article.content }}</p>
+				</div>
+		{% endfor %}
+	</div>
 </body>
 </html>
