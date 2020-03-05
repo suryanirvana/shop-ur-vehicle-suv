@@ -14,5 +14,8 @@ def cars(request):
     car_list = list(Car.objects.all().values())
     for i in range(len(car_list)):
         car_list[i]['category'] = Category.objects.get(pk=car_list[i]['category_id']).car_type
-    response = {'recomended_car':car_list[0],'car_list':car_list}
+    try:
+        response = {'recomended_car':car_list[0],'car_list':car_list}
+    except:
+        response = {'car_list':car_list}
     return render(request,'cars.html',response)
