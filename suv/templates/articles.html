@@ -1,0 +1,30 @@
+<!doctype html>
+{% load static %}
+<html lang="en"><head>
+  <title>Articles</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="overflow-x:hidden; background-color:#D8E7E6;">
+	
+	<div class="row">
+		<h1 class="title">ARTICLES</h1>
+		<div class="rectangle"></div>
+	</div>
+	{% for article in article_list %}
+		<div style="max-height: 1000px; overflow-y: scroll;">
+			<div class="row articleBox">
+				<h1>{{ article.title }}</h1>
+				<h2>{{ article.date }}</h2>
+				<p>{{ article.content }}</p>
+			</div>
+		</div>
+	{% endfor %}
+</body>
+</html>
