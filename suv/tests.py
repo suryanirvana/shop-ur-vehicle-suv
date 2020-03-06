@@ -8,6 +8,11 @@ from .models import *
 # TDD Unit Tests
 #by Fransiscus Emmanuel Bunaren
 class SUVTest(TestCase):
+    #For testing rent
+    def test_rent_response(self):
+        response = Client().get('/rent.html')
+        self.assertEqual(response.status_code,200)
+
     #For testing whether category can be accessed or not
     def test_category_response(self):
         response = Client().get('/category.html')

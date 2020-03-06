@@ -6,6 +6,10 @@ def index(request):
     response = {}
     return render(request,'index.html',response)
 
+def rent(request):
+    response = {}
+    return render(request,'rent.html',response)
+
 def article(request):
     response = {'article_list':Article.objects.all().values()}
     return render(request,'articles.html',response)
