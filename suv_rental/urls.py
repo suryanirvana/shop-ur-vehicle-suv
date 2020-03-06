@@ -25,4 +25,5 @@ urlpatterns = [
     path('rent.html', include('suv.urls')),
     path('category.html', include('suv.urls')),  
     path('review.html', include('suv.urls')),  
+    path('transaction.html', include('suv.urls')),  
 ]

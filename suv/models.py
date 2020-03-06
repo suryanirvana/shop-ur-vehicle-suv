@@ -10,8 +10,6 @@ class Car(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     year = models.TextField(max_length=1000)
     city = models.TextField(max_length=1000)
-    price = models.TextField(max_length=1000)
-    description = models.TextField(max_length=1000)
     car_image = models.ImageField(null=True, blank=True, upload_to="{% static 'img' %}")
 
 class Article(models.Model):
@@ -27,7 +25,8 @@ class Review(models.Model):
     rating = models.TextField(max_length=1000)
 
 class Transaction(models.Model):
-    username = models.TextField(max_length=1000)
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    time_range = models.TextField(max_length=1000)
+    name = models.TextField(max_length=1000)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    year = models.TextField(max_length=1000)
+    city = models.TextField(max_length=1000)
     date = models.TextField(max_length=1000)

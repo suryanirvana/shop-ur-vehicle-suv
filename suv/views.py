@@ -45,6 +45,23 @@ def rent(request):
     response = {'cars' : cars, 'car_type' : car_type}
     return render(request,'rent.html',response)
 
+def transaction(request):
+    if request.method == "POST":
+        req = request.POST
+        form = TransactionForm(request.POST, request.FILES)
+
+        type_car = Category.objects.get_or_create(car_type=req['car_type'])[0]
+        type_car.save()
+        new_car = Transaction.objects.create(name=req['name'],category=type_car,year = req['year'],city = req['location'],date=datetime.datetime.today())
+        new_car.save()
+        return redirect('/transaction.html')
+    else:
+        form = TransactionForm()
+    cars = Transaction.objects.all()
+    car_type = Category.objects.all()
+    response = {'cars' : cars, 'car_type' : car_type}
+    return render(request,'transaction.html',response)
+
 def article(request):
     response = {'article_list':Article.objects.all().values()}
     return render(request,'articles.html',response)
