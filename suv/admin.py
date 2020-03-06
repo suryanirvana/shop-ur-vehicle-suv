@@ -7,3 +7,5 @@ from .models import *
 admin.site.register(Category)
 admin.site.register(Car)
 admin.site.register(Article)
+admin.site.register(Review)
+admin.site.register(Transaction)

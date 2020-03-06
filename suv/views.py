@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import *
+from .forms import *
 
 # Create your views here.
 def index(request):
@@ -7,11 +8,39 @@ def index(request):
     return render(request,'index.html',response)
 
 def rent(request):
-    response = {}
-    return render(request,'rent.html',response)
+    if request.method == "POST":
+        req = request.POST
+        form = CarForm(request.POST, request.FILES)
+
+        type_car = Category.objects.get_or_create(car_type=req['car_type'])[0]
+        type_car.save()
+
+        new_car = Car.objects.create(name=req['name'],category=type_car,year = req['year'],city = req['location'],username = req['owner'],car_image = req['car_image'])
+        new_car.save()
+        return redirect('/rent.html')
+    else:
+        form = CarForm()
+    cars = Car.objects.all()
+    car_type = Category.objects.all()
+    response = {'cars' : cars, 'car_type' : car_type}
+    return render(request, 'rent.html', response)
 
 def review(request):
-    response = {}
+    if request.method == "POST":
+        req = request.POST
+        form = CarForm(request.POST, request.FILES)
+
+        type_car = Category.objects.get_or_create(car_type=req['car_type'])[0]
+        type_car.save()
+
+        new_car = Car.objects.create(name=req['name'],category=type_car,year = req['year'],city = req['location'],username = req['owner'],car_image = req['car_image'])
+        new_car.save()
+        return redirect('/rent.html')
+    else:
+        form = CarForm()
+    cars = Car.objects.all()
+    car_type = Category.objects.all()
+    response = {'cars' : cars, 'car_type' : car_type}
     return render(request,'review.html',response)
 
 def article(request):
