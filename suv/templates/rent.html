@@ -1,0 +1,82 @@
+{% load static %}
+
+{% block content %}
+<div class="form" id="rent">
+    <h1>RENT YOUR CAR</h1>
+    <div class="line"></div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name" class="expl">Car Name</label>
+            <input class="form-control" id="name" type="text" name="name" maxlength="255" required placeholder="Please enter your car name">
+        </div>
+        <div class="form-group">
+        <label for="carType" class=expl>Car Type</label>
+            <select class="form-control" id="car_type" type="text" name="car_type" maxlength="6" required>
+                <option>SUV</option>
+                <option>CUV</option>
+                <option>SEDAN</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="year" class="expl">Year</label>
+            <input class="form-control" id="year" type="text" name="year" maxlength="255" required placeholder="From what year is it?">
+        </div>
+        <div class="form-group">
+            <label for="location" class="expl">Location</label>
+            <input class="form-control" id="location" type="text" name="location" maxlength="255" required placeholder="Your location?">
+        </div>
+        <div class="form-group">
+            <label for="owner" class="expl">Owner</label>
+            <input class="form-control" id="owner" type="text" name="owner" maxlength="255" required placeholder="Who is the owner?">
+        </div>
+        <div class="form-group">
+            <label for="car_image" class="expl">Please upload your car image</label>
+            <input class="form-control" id="car_image" type="file" name="car_image">
+        </div>
+        <button type="submit" id="submitBtn">Submit</button>
+    </form>
+</div>
+
+<div class="transaction">
+    <h1>YOUR TRANSACTION</h1>
+    <div class="line"></div>
+    <div class="row eleven">
+        <div class="col-md-4">
+            <div style="margin-left:1px; margin-right:1px">
+                <div class="categoryBoxUp">
+                    <div class="row" style="padding:15px">
+                        <img class="similarImg" src="{% static 'img/CAR_PLACEHOLDER.svg' %}">
+                    </div>
+                    <!--title-->
+                    <div class="row" style="margin-left:auto; margin-right:auto;">
+                        <h1 class="similarTitle">Mercedez Benz</h1>
+                        <h2 class="similarSubTitle">GG50-2019</h2>
+                    </div>
+                    <!--dots-->
+                    <div class="row" style="padding-left:15px;">
+                        <div class="dot">
+                            <h4 class="type">SUV</h4>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left:15px">
+                        <div class="dot">
+                            <h4 class="type">Calabasas</h4>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left:15px;">
+                        <div class="dot">
+                            <h4 class="type">$3,000</h4>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left:15px">
+                        <div class="dot">
+                            <h4 class="type">Surya Nirvana</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>
+{% endblock %}

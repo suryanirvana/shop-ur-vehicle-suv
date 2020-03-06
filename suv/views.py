@@ -23,3 +23,11 @@ def cars(request):
 def category(request):
 	response = {}
 	return render(request, 'category.html', response)
+	
+def review(request):
+	response = {}
+	return render(request, 'review.html', response)
+	
+def rent(request):
+	response = {}
+	return render(request, 'rent.html', response)

@@ -6,4 +6,6 @@ urlpatterns = [
     path('articles.html', article, name='article'),
     path('cars.html', cars, name='cars'),
 	path('category.html', category, name='category'),
+	path('review.html', review, name='review'),
+	path('rent.html', rent, name='rent'),
 ]
