@@ -22,4 +22,5 @@ urlpatterns = [
     path('articles.html', include('suv.urls')),
     path('cars.html', include('suv.urls')),
     path('index.html', include('suv.urls')),
+	path('category.html', include('suv.urls')),
 ]

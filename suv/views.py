@@ -19,3 +19,7 @@ def cars(request):
     except:
         response = {'car_list':car_list}
     return render(request,'cars.html',response)
+	
+def category(request):
+	response = {}
+	return render(request, 'category.html', response)
