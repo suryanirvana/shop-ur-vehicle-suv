@@ -8,6 +8,11 @@ from .models import *
 # TDD Unit Tests
 #by Fransiscus Emmanuel Bunaren
 class SUVTest(TestCase):
+    #For testing whether category can be accessed or not
+    def test_category_response(self):
+        response = Client().get('/category.html')
+        self.assertEqual(response.status_code,200)
+
     #For testing whether homepage can be accessed or not
     def test_index_response(self):
         response = Client().get('/index.html')
@@ -15,6 +20,16 @@ class SUVTest(TestCase):
 
         response = Client().get('/')
         self.assertEqual(response.status_code,200)
+
+    #For testing get request
+    def test_get_response(self):
+        response = Client().get('/cars.html?q=minibus')
+        self.assertEqual(response.status_code,200)
+
+        #Check it gives response
+        new_response = self.client.get('/cars.html?q=minibus')
+        html_response = new_response.content.decode('utf8')
+        self.assertTrue(html_response)
 
     #For testing model "Category"
     def test_model_category(self):

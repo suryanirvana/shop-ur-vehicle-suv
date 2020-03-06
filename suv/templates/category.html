@@ -1,0 +1,425 @@
+<!doctype html>
+{% load static %}
+<html lang="en"><head>
+  <title>Category</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+.title3 {
+	position: relative;
+	width: 263px;
+	height: 77px;
+	margin-left: 5vh;
+
+	font-family: Open Sans;
+	font-style: bold;
+	font-weight: 800;
+	font-size: 48px;
+	line-height: 77px;
+	letter-spacing: 0.11em;
+
+	color: #08154A;
+}
+
+.line {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 4vw;
+	height: 10px;
+	width: 30vh;
+	background-color: #40D0CE;
+	border-radius: 50px;
+}
+
+.titleUnderline {
+	position: relative;
+	height: 10px;
+	padding-bottom: 5vw;
+	margin-left: 5vw;
+	margin-right: 5vw;
+	margin-bottom: 5vw;
+	
+	background: #40D0CE;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 50px;
+}
+
+.articleBox {
+	position: relative;
+	padding-bottom: 5vw;
+	margin-left: 5vw;
+	margin-right: 5vw;
+	margin-bottom: 5vw;
+	
+	background: #F0FAF9;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 50px;
+}
+
+.articleTitle {
+	position: relative;
+	margin-left: 1vw;
+	margin-top: 3vw;
+	margin-bottom: 0;
+
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 800;
+	font-size: 3.5vw;
+	line-height: 5vw;
+
+	color: #40D0CE;
+}
+
+.articleSubTitle {
+	position: relative;
+	margin-left: 1vw;
+	margin-top: 0;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 550;
+	font-size: 2.5vw;
+	line-height: 5vw;
+
+	color: #40D0CE;
+}
+
+.articleText {
+	position: relative;
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 2.5vw;
+	line-height: 161.18%;
+}
+
+.carImg {
+	position: relative;
+	max-width: 100%;
+    max-height: 100%;
+	min-height:500px;
+	left: -10px;
+	
+	box-shadow: 0 5px #1C2E7C,
+				5px 0 #40D0CE;
+	border-radius: 0 50px 50px 0;
+}
+
+.carTitle {
+	position: relative;
+	margin-bottom: 0;
+	margin-left: 3vh;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 800;
+	font-size: 55px;
+	line-height: 60px;
+	
+	color: #40D0CE;
+}
+
+.carSubTitle {
+	position: relative;
+	margin-top: 0;
+	margin-left: 3vh;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 800;
+	font-size: 40px;
+	line-height: 60px;
+	
+	color: #40D0CE;
+}
+
+.price {
+	position: relative;
+	margin-top: 27px;
+	margin-left: 3vh;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 40px;
+
+	color: #909090;
+}
+
+.dot {
+	position: relative;
+	margin-left: 3vh;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	width: 33px;
+	height: 33px;
+	background-color: #C4C4C4;
+}
+
+.type {
+	position: relative;
+	margin-left: 55px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 30px;
+
+	color: #909090;
+}
+
+.owner {
+	position: relative;
+	width: 300px;
+	margin-left: 55px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 32px;
+
+	color: #40D0CE;
+}
+
+.checked {
+	color: orange;
+}
+
+.big {
+	font-size: 9vh;
+	width: 10vh;
+}
+
+.medium {
+	margin: 5px;
+	font-size: 5vh;
+}
+
+.reviewBox {
+	position: relative;
+	max-height: 500px;
+	max-width: 350px;
+	padding-left:15px; 
+	padding-right:15px; 
+	padding-top:30px;
+	padding-bottom: 40px;
+	margin-left: 1vw;
+	margin-right: 1vw;
+	margin-bottom: 5vw;
+	
+	background: #F0FAF9;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 50px;
+}
+
+.reviewText {
+	position: relative;
+	margin-top: 15px;
+	
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 33px;
+	text-align: center;
+
+	color: #909090;
+}
+
+.categoryBoxUp {
+	position: relative;
+	min-height: 400px;
+	min-width: 320px;
+	max-width: 460px;
+	padding-left:30px; 
+	padding-right:30px; 
+	padding-top:30px;
+	padding-bottom: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0;
+	
+	background: #F0FAF9;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 50px 50px 0 0;
+}
+
+.categoryBoxDown {
+	position: relative;
+	min-width: 320px;
+	max-width: 460px;
+	padding-left:30px; 
+	padding-right:30px; 
+	padding-top:30px;
+	padding-bottom: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+	margin-bottom: 0;
+	
+	background: linear-gradient(270deg, #40D0CE 0%, #1C2E7C 100%);
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+.reviewCollapse	{
+	position: relative;
+	min-width: 320px;
+	max-width: 460px;
+	padding-left:30px; 
+	padding-right:30px; 
+	padding-top:30px;
+	padding-bottom: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+	margin-bottom: 5vw;
+	text-align: center;
+	
+	background: linear-gradient(270deg, #40D0CE 0%, #1C2E7C 100%);
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 0 0 50px 50px;
+}
+
+.similarImg {
+	position: relative;
+	max-width: 100%;
+    max-height: 100%;
+	min-height: 100px;
+	
+	border-radius: 25px;
+}
+
+.similarTitle {
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 0;
+
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 800;
+	font-size: 30px;
+	text-align: center;
+
+	color: #40D0CE;
+}
+
+.similarSubTitle {
+	position: relative;
+	margin-top: 0;
+	margin-bottom: 10px;
+
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 800;
+	font-size: 1,5vw;
+	text-align: center;
+
+	color: #40D0CE;
+}
+
+.home {
+	position: relative;
+	padding-left: 0;
+	margin-bottom: 10vh;
+	height: 40vh;
+	width: 110vw;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	z-index: -1;
+	
+	background-image:url(/static/img/suv_background_flat.jpg);
+}
+</style></head>
+
+<body style="overflow-x:hidden; background-color:#D8E7E6;">
+	
+	<div class="row">
+		<h1 class="title3">CATEGORY</h1>
+		<div class="rectangle"></div>
+	</div>
+	
+	<div class="row home">
+		<h1 class="title3" style="width:100vw; text-align:center; margin-left:0; margin-top:15vh; font-size:60px;">{{ title }}</h1>
+	</div>
+
+	<div class="row">
+		{% for car in car_list%}
+		<!--category 1-->
+		<div class="col-sm-4">
+			<!--image-->
+			<div style="margin-left:1px; margin-right:1px">
+			<div class="categoryBoxUp">
+				<div class="row" style="padding:15px">
+					<img class="similarImg" src="/static/img/testCar.jpg">
+				</div>
+				<!--title-->
+				<div class="row" style="margin-left:auto; margin-right:auto;">
+					<h1 class="similarTitle">{{ car.name }}</h1>
+					<h2 class="similarSubTitle">{{ car.category }} - {{ car.year }}</h2>
+				</div>
+				<!--dots-->
+				<div class="row" style="padding-left:15px;">
+					<div class="dot">
+						<h4 class="type">{{ car.category }}</h4>
+					</div>
+				</div>
+				<div class="row" style="padding-left:15px">
+					<div class="dot">
+						<h4 class="type">{{ car.city }}</h4>
+					</div>
+				</div>
+				<div class="row" style="padding-left:15px;">
+					<div class="dot">
+						<h4 class="type">Rp {{ car.price }}</h4>
+					</div>
+				</div>
+				<div class="row" style="padding-left:15px">
+					<div class="dot">
+						<h4 class="type">{{ car.username }}</h4>
+					</div>
+				</div>
+				<br>
+				<br>
+			</div>
+			<div class="collapse categoryBoxDown" id="collapseExample{{car.id}}">
+				<div class="row" style="text-align:center; margin-top:30px; padding:0;">
+					<span class="fa fa-star medium checked"></span>
+					<span class="fa fa-star medium checked"></span>
+					<span class="fa fa-star medium checked"></span>
+					<span class="fa fa-star medium checked"></span>
+					<span class="fa fa-star medium checked"></span>
+				</div>
+				<div class="row" style="padding-right:30px; padding-left:30px;">
+					<p class="reviewText" style="color:#F0FAF9;">
+						“Lorem ipsum dolor sit 
+						amet, consectetur 
+						adipiscing elit,”
+					</p>
+				</div>
+			</div>	
+			<div class="reviewCollapse">
+				<a class="reviewText" style="color:#F0FAF9;" data-toggle="collapse" href="#collapseExample{{car.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+					Review
+				</a>
+			</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+		
+	<br><br><br><br><br><br><br><br>
+</body>
+</html>
