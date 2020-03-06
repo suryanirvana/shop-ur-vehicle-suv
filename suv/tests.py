@@ -137,3 +137,13 @@ class SUVTest(TestCase):
         response = transaction(request)
         html_response = response.content.decode('utf8')
         self.assertTemplateUsed(Client().get(path='/transaction.html'), 'transaction.html')
+
+    def test_contains_question_in_title1(self):
+        response = Client().get('')
+        response_content = response.content.decode('utf-8')
+        self.assertIn("Looking for a nice ride?", response_content)
+
+    def test_contains_question_in_title2(self):
+        response = Client().get('')
+        response_content = response.content.decode('utf-8')
+        self.assertIn("We've got you cover!", response_content)
