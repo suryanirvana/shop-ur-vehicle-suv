@@ -147,3 +147,18 @@ class SUVTest(TestCase):
         response = Client().get('')
         response_content = response.content.decode('utf-8')
         self.assertIn("We've got you cover!", response_content)
+
+    def test_contains_question_in_title3(self):
+        response = Client().get('')
+        response_content = response.content.decode('utf-8')
+        self.assertIn("Hello there! we are the development group of this project, we make this website in order to make a platform for those who want to rent a car or want your car to be rented. We took alot of effort in making this website so we hope you have the best experience when using this website. Happy Renting!", response_content)
+
+    def test_contains_question_in_title4(self):
+        response = Client().get('')
+        response_content = response.content.decode('utf-8')
+        self.assertIn("C A T E G O R Y", response_content)
+
+    def test_contains_question_in_title5(self):
+        response = Client().get('')
+        response_content = response.content.decode('utf-8')
+        self.assertIn("A R T I C L E S", response_content)
