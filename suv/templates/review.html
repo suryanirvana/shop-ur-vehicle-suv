@@ -377,7 +377,20 @@
 			<button type="submit" id="submitBtn">Submit</button>
 		</form>
 	</div>
-		</div>
+</div>
+<div class="response">
+    {% for i in reviews %}
+    <div class="row twelve">
+        <!-- <pre> -->
+            <h1 class="name">Username: {{ i.username }}</h1>
+            <h1 class="category">Car Name: {{ i.car.name }}</h1>
+            <h1 class="date">Rating: {{ i.rating }}</h1>
+            <h1 class="year">Message: {{ i.message }}</h1>
+            <h1 class="city" style="margin-bottom: 20px;">Date: {{ i.created_date }}</h1>
+        <!-- </pre> -->
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
 </body>
 </html>

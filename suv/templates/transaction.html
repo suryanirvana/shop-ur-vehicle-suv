@@ -43,15 +43,12 @@
 <div class="response">
     {% for i in cars %}
     <div class="row twelve">
-        <h1 class="name">{{ i.name }}</h1>
-        <h1 class="category">{{ i.category }}</h1>
-        <h1 class="year">{{ i.year }}</h1>
+        <h1 class="name">Name: {{ i.name }}</h1>
+        <h1 class="category">Category: {{ i.category.car_type }}</h1>
+        <h1 class="year">Year: {{ i.year }}</h1>
+        <h1 class="city">Location: {{ i.city }}</h1>
+        <h1 class="date" style="margin-bottom: 20px;">Date: {{ i.date }}</h1>
     </div>
-    
-    
-    {{ i.year }}
-    {{ i.city }}
-    {{ i.date }}
     {% endfor %}
 </div>
 {% endblock %}

@@ -42,4 +42,18 @@
         <button type="submit" id="submitBtn">Submit</button>
     </form>
 </div>
+<div class="response">
+    {% for i in cars %}
+    <div class="row twelve">
+        <!-- <pre> -->
+            <img src="/static/img/{{ i.car_image }}" style="margin-left: auto; margin-right: auto; margin-top: 30px; width: 90%; border-radius: 30px;">
+            <h1 class="name">Name: {{ i.name }}</h1>
+            <h1 class="category">Category: {{ i.category.car_type }}</h1>
+            <h1 class="date">Year: {{ i.year }}</h1>
+            <h1 class="year">Location: {{ i.city }}</h1>
+            <h1 class="city" style="margin-bottom: 20px;">Owner: {{ i.username }}</h1>
+        <!-- </pre> -->
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
