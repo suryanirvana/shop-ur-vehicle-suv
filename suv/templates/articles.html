@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 <!doctype html>
 {% load static %}
 <html lang="en"><head>
@@ -11,21 +12,23 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
+{% block content %}
 <body style="overflow-x:hidden; background-color:#D8E7E6;">
 	
 	<div class="row">
-		<h1 class="title">ARTICLES</h1>
-		<div class="rectangle"></div>
+		<h1 class="title" style="display: flex;margin-top: 20vh; width: 100%; text-align: center; font-weight: bold; color: #08154A;">A R T I C L E S</h1>
+		<div class="line" style="width: 200px; height: 15px; margin: 15px auto; background-color: #40D0CE; border-radius: 15px;"></div>
 	</div>
 	
 	<div style="max-height: 1000px; overflow-y: scroll;">
 		{% for article in article_list %}
 				<div class="row articleBox">
-					<h1 class="articleTitle">{{ article.title }}</h1>
-					<h2 class="articleSubTitle">{{ article.date }}</h2>
+					<h1 class="articleTitle" style="margin-left: 0;">{{ article.title }}</h1>
+					<h2 class="articleSubTitle" style="margin-left: 0;">{{ article.date }}</h2>
 					<p class="articleText">{{ article.content }}</p>
 				</div>
 		{% endfor %}
 	</div>
 </body>
+{% endblock %}
 </html>

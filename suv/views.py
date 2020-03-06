@@ -10,6 +10,10 @@ def rent(request):
     response = {}
     return render(request,'rent.html',response)
 
+def review(request):
+    response = {}
+    return render(request,'review.html',response)
+
 def article(request):
     response = {'article_list':Article.objects.all().values()}
     return render(request,'articles.html',response)
