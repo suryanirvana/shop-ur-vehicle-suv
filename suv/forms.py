@@ -92,4 +92,23 @@ class CarForm(forms.Form):
         'style' : 'border-radius:20px;',
         'label' : '',
     }))
+    price = forms.CharField(widget=forms.TextInput(attrs={
+        'class' : 'form-control',
+        'placeholder' : 'Price?',
+        'type' : 'text',
+        'maxlength' : '255',
+        'required' : True,
+        'style' : 'border-radius:20px;',
+        'label' : '',
+    }))
+
+    description = forms.CharField(widget=forms.TextInput(attrs={
+        'class' : 'form-control',
+        'placeholder' : 'Description?',
+        'type' : 'text',
+        'maxlength' : '1000',
+        'required' : True,
+        'style' : 'border-radius:20px;',
+        'label' : '',
+    }))
     car_image = forms.FileField()

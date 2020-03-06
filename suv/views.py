@@ -35,7 +35,7 @@ def rent(request):
         type_car = Category.objects.get_or_create(car_type=req['car_type'])[0]
         type_car.save()
 
-        new_car = Car.objects.create(name=req['name'],category=type_car,year = req['year'],city = req['location'],username = req['owner'],car_image = req['car_image'])
+        new_car = Car.objects.create(name=req['name'],price=req['price'],description=req['description'],category=type_car,year = req['year'],city = req['location'],username = req['owner'],car_image = req['car_image'])
         new_car.save()
         return redirect('/rent.html')
     else:

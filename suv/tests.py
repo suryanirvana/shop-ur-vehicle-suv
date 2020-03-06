@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.test import Client
 from django.test import *
+from .views import *
+from django.http import HttpRequest
 
 #Importing Models
 from .models import *
@@ -28,8 +30,6 @@ class SUVTest(TestCase):
 
     #For testing get request
     def test_get_response(self):
-        response = Client().get('/cars.html?q=minibus')
-        self.assertEqual(response.status_code,200)
 
         #Check it gives response
         new_response = self.client.get('/cars.html?q=minibus')
@@ -107,9 +107,33 @@ class SUVTest(TestCase):
     def test_article_response(self):
         response = Client().get('/articles.html')
         self.assertEqual(response.status_code,200)
-
-    #Test Cars View
-    def test_cars_response(self):
-        response = Client().get('/cars.html')
-        self.assertEqual(response.status_code,200)
         
+    def test_url_review(self):
+        response = Client().get('/review.html')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_rent(self):
+        response = Client().get('/rent.html')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_transaction(self):
+        response = Client().get('/transaction.html')
+        self.assertEqual(response.status_code, 200)
+
+    def test_review_landing_page_is_completed(self):
+        request = HttpRequest()
+        response = review(request)
+        html_response = response.content.decode('utf8')
+        self.assertIn('Review', html_response)
+
+    def test_rent_landing_page_is_completed(self):
+        request = HttpRequest()
+        response = rent(request)
+        html_response = response.content.decode('utf8')
+        self.assertTemplateUsed(Client().get(path=''), 'index.html')
+
+    def test_rent_transaction_page_is_completed(self):
+        request = HttpRequest()
+        response = transaction(request)
+        html_response = response.content.decode('utf8')
+        self.assertTemplateUsed(Client().get(path='/transaction.html'), 'transaction.html')
