@@ -5,19 +5,26 @@ import datetime
 
 # Create your views here.
 def index(request):
-    response = {}
+    ln = len(Article.objects.all())-1
+    article = Article.objects.all().values()[ln]
+    title = article['title']
+    content = article['content'].split(".")[:3]
+    content = " ".join(content) + "."
+    response = {'title' : title , "content" : content}
     return render(request,'index.html',response)
 
 def review(request):
     if request.method == "POST":
         req = request.POST
         form = ReviewForm(request.POST)
-        print("\nIni Request :",req)
+        # print("\nIni Request :",req)
+        print(req)
+        print(req['car'])
 
-        new_car = Car.objects.get(name=req['year'])
+        new_car = Car.objects.get(name=req['car'])
         new_car.save()
 
-        new_review = Review.objects.create(username=req['name'],car=new_car,message = req['location'],created_date = datetime.datetime.today(),rating = req['owner'])
+        new_review = Review.objects.create(username=req['username'],car=new_car,message = req['message'],created_date = req['created_date'],rating = req['rating'])
         new_review.save()
         return redirect('/review.html')
     else:
@@ -37,7 +44,7 @@ def rent(request):
 
         new_car = Car.objects.create(name=req['name'],price=req['price'],description=req['description'],category=type_car,year = req['year'],city = req['location'],username = req['owner'],car_image = req['car_image'])
         new_car.save()
-        return redirect('/rent.html')
+        return redirect('/category.html?q=' + req['car_type'])
     else:
         form = CarForm()
     cars = Car.objects.all()
@@ -65,16 +72,6 @@ def transaction(request):
 def article(request):
     response = {'article_list':Article.objects.all().values()}
     return render(request,'articles.html',response)
-
-def cars(request):
-    car_list = list(Car.objects.all().values())
-    for i in range(len(car_list)):
-        car_list[i]['category'] = Category.objects.get(pk=car_list[i]['category_id']).car_type
-    try:
-        response = {'recomended_car':car_list[0],'car_list':car_list}
-    except:
-        response = {'car_list':car_list}
-    return render(request,'cars.html',response)
 
 def category(request):
     #Get GET REQUEST

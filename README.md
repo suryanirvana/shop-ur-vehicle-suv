@@ -28,8 +28,8 @@ about tourist destinations in order to recommend users to rent a car to go to th
 4. Articles
 5. Search and view items
 
-## Role for Stage 1:
-1. Yafi Ahsan Hakim 				: Create README.md
-2. I Made Gede Surya Nirvana Prima 	: Create Heroku app, Design website  
-3. Fransiscus Emmanuel Bunaren 		: Create Gitlab group, Create Django app 
-4. Muhammad Fadhil Qorano 			: Create Persona
+## Role for Stage 2:
+1. Yafi Ahsan Hakim 				: 
+2. I Made Gede Surya Nirvana Prima 	: Added test cases, Update test cases, fixed some bugs
+3. Fransiscus Emmanuel Bunaren 		: Added test cases, Update test cases, fixed some bugs, Integrated article and homepage
+4. Muhammad Fadhil Qorano 			: 
