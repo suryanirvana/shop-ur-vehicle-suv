@@ -88,13 +88,13 @@ def category(request):
         response = {'title':req['city'],'car_list':[]}
     else:
         response = {'title':'No matching car found.','car_list':[]}
-        return render(request,'category.html',response)
+        #return render(request,'category.html',response)
 
     #Making Car List
     car_all = list(Car.objects.all().values())
     car_list = list()
 
-    
+
     if 'q' in req:
         #Set category for each cars
         for i in range(len(car_all)):
@@ -102,65 +102,43 @@ def category(request):
 
         #List all cars that fit the category
         for i in car_all:
-            try:
-                if i['category'].lower() == req['q'].lower():
-                    car_list.append(i)
-            except:
-                pass
+            if i['category'].lower() == req['q'].lower():
+                    car_list.append(i)  
     elif 'price' in req:
         #List all cars that fit the category
         for i in car_all:
-            try:
-                if i['price'] == req['price']:
+            if i['price'] == req['price']:
                     car_list.append(i)
-            except:
-                pass
     elif 'year' in req:
         #List all cars that fit the category
         for i in car_all:
-            try:
-                if i['year'] == req['year']:
+            if i['year'] == req['year']:
                     car_list.append(i)
-            except:
-                pass
     elif 'city' in req:
         #List all cars that fit the category
         for i in car_all:
-            try:
-                if i['city'].lower() == req['city'].lower():
+            if i['city'].lower() == req['city'].lower():
                     car_list.append(i)
-            except:
-                pass
     else:
         pass
+
 
     #If there is no car, then say no matching cars
     if (not car_list):
         response = {'title':'No matching car found.','car_list':[]}
-        return render(request,'category.html',response)
-
+        #return render(request,'category.html',response)
+    
     if 'q' in req:    
     #Making Recomended Car
-        try:
-            response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
-        except:
-            response = {'title':req['q'],'car_list':{}}
+        response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
     elif 'price' in req:
-        try:
-            response = {'title':req['price'],'recomended_car':car_list[0],'car_list':car_list}
-        except:
-            response = {'title':req['price'],'car_list':{}}
+        response = {'title':req['price'],'recomended_car':car_list[0],'car_list':car_list}
     elif 'year' in req:
-        try:
-            response = {'title':req['year'],'recomended_car':car_list[0],'car_list':car_list}
-        except:
-            response = {'title':req['year'],'car_list':{}}
+        response = {'title':req['year'],'recomended_car':car_list[0],'car_list':car_list}
     elif 'city' in req:
-        try:
-            response = {'title':req['city'],'recomended_car':car_list[0],'car_list':car_list}
-        except:
-            response = {'title':req['city'],'car_list':{}}
+        response = {'title':req['city'],'recomended_car':car_list[0],'car_list':car_list}
     else:
-        pass
+        response = {'title':'No matching car found.','car_list':[]}
+        
 
     return render(request,'category.html',response)
