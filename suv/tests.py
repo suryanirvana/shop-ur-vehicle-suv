@@ -96,6 +96,10 @@ class SUVTest(TestCase):
         response = Client().get('/category.html?a=bekasi')
         self.assertEqual(response.status_code,200)
 
+    def test_category_response_not_found(self):
+        response = Client().get('/category.html?price=10')
+        self.assertEqual(response.status_code,200)
+
     # For testing whether homepage can be accessed or not
     def test_index_response(self):
         title = "A New Avaza Car For Rent"

@@ -128,16 +128,19 @@ def category(request):
         response = {'title':'No matching car found.','car_list':[]}
         #return render(request,'category.html',response)
     
-    if 'q' in req:    
-    #Making Recomended Car
-        response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
-    elif 'price' in req:
-        response = {'title':req['price'],'recomended_car':car_list[0],'car_list':car_list}
-    elif 'year' in req:
-        response = {'title':req['year'],'recomended_car':car_list[0],'car_list':car_list}
-    elif 'city' in req:
-        response = {'title':req['city'],'recomended_car':car_list[0],'car_list':car_list}
-    else:
+    try:
+        if 'q' in req:    
+        #Making Recomended Car
+            response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
+        elif 'price' in req:
+            response = {'title':req['price'],'recomended_car':car_list[0],'car_list':car_list}
+        elif 'year' in req:
+            response = {'title':req['year'],'recomended_car':car_list[0],'car_list':car_list}
+        elif 'city' in req:
+            response = {'title':req['city'],'recomended_car':car_list[0],'car_list':car_list}
+        else:
+            pass
+    except:
         response = {'title':'No matching car found.','car_list':[]}
         
 
