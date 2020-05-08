@@ -248,3 +248,16 @@ class SUVTest(TestCase):
         self.assertEqual(response.status_code,302)
 
         self.assertEqual(1, Review.objects.all().count())
+
+    def test_favorite_api(self):
+        # Clear Database
+        with open('./favorite.json','w+') as f:
+            f.write("{}")
+
+        # Test Like
+        response = Client().post('/favorite_api',{'like':'4' , 'q':'SUV'})
+        self.assertEqual(response.status_code,302)
+
+        # Test Disike
+        response = Client().post('/favorite_api',{'unlike':'4' , 'q':'SUV'})
+        self.assertEqual(response.status_code,302)

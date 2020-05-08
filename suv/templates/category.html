@@ -62,6 +62,19 @@
 						<h4 class="type">{{ car.username }}</h4>
 					</div>
 				</div>
+				<div class="row">
+					<form method="post" action="/favorite_api">
+						{% csrf_token %}
+						<input type="hidden" name='q' value="{{ title }}"></input>
+						{% if car.id in fav_cars %}
+							<input type="hidden" name='unlike' value="{{ car.id }}"></input>
+							<button class="btn btn-info">💔 Remove from favorite</button>
+						{% else %}
+							<input type="hidden" name='like' value="{{ car.id }}"></input>
+							<button class="btn btn-info">💖 Add to favorite</button>
+						{% endif %}
+					</form>
+				</div>
 				<br>
 				<br>
 			</div>

@@ -9,4 +9,5 @@ urlpatterns = [
     path('rent.html', rent, name='rent'),
     path('transaction.html', transaction, name='transaction'),
     path('review.html', review, name='review'),
+    path('favorite_api', favorite_api, name='favorite_api'),
 ]

@@ -17,9 +17,6 @@ def review(request):
     if request.method == "POST":
         req = request.POST
         form = ReviewForm(request.POST)
-        # print("\nIni Request :",req)
-        print(req)
-        print(req['car'])
 
         new_car = Car.objects.get(name=req['car'])
         new_car.save()
@@ -31,6 +28,7 @@ def review(request):
         form = ReviewForm()
     reviews = Review.objects.all()
     car = Car.objects.all()
+
     response = {'reviews' : reviews, 'car' : car}
     return render(request, 'review.html', response)
 
@@ -76,7 +74,8 @@ def article(request):
 def category(request):
     #Get GET REQUEST
     req = request.GET
-
+    username = "admin"
+    fav_cars  =  load_db()[username]
     #Handle if no query is passed
     if 'q' not in req:
         response = {'title':'No matching car found.','car_list':[]}
@@ -105,11 +104,30 @@ def category(request):
         response = {'title':'No matching car found.','car_list':[]}
         return render(request,'category.html',response)
 
-        
     #Making Recomended Car
     try:
         response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
     except:
         response = {'title':req['q'],'car_list':{}}
 
+    response['fav_cars'] = fav_cars
     return render(request,'category.html',response)
+
+def load_db():
+    with open("./favorite.json") as f:
+        like_db = json.load(f)
+    return like_db
+
+def favorite_api(request):
+    username = 'admin'
+    db = load_db()
+    if username not in db:
+        db[username] = []
+    if 'like' in request.POST:
+        if request.POST['like'] not in db[username]:
+            db[username].append(int(request.POST['like']))
+    elif 'unlike' in request.POST:
+        db[username].remove(int(request.POST['unlike']))
+    with open("./favorite.json", 'w') as fp:
+        json.dump(db, fp)
+    return redirect('/category.html?q=' + request.POST['q'])
