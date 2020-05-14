@@ -102,6 +102,44 @@ class SUVTest(TestCase):
         html_response = response.content.decode('utf8')
         self.assertIn('No matching car found.', html_response)
 
+    def test_category_response_with_year(self):
+        category = Category.objects.create(car_type="suv")
+        category.save()
+        name = "Avanza"
+        username = "Bejo Paijo"
+        year = "2015"
+        city = "Bekasi"
+        price = 500000
+        description = "An avanza minibus"
+        car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
+        car.save()
+        response = Client().get('/category.html?year=2015')
+        self.assertEqual(response.status_code,200)
+
+    def test_category_response_with_city(self):
+        category = Category.objects.create(car_type="suv")
+        category.save()
+        name = "Avanza"
+        username = "Bejo Paijo"
+        year = "2015"
+        city = "Bekasi"
+        price = 500000
+        description = "An avanza minibus"
+        car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
+        car.save()
+        response = Client().get('/category.html?city=bekasi')
+        self.assertEqual(response.status_code,200)
+    
+    def test_category_response_wrong_url(self):
+        response = Client().get('/category.html?a=bekasi')
+        html_response = response.content.decode('utf8')
+        self.assertIn('No matching car found.', html_response)
+
+    def test_category_response_not_found(self):
+        response = Client().get('/category.html?price=10')
+        html_response = response.content.decode('utf8')
+        self.assertIn('No matching car found.', html_response)
+
     # For testing whether homepage can be accessed or not
     def test_index_response(self):
         title = "A New Avaza Car For Rent"
