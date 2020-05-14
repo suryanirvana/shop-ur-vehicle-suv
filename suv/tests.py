@@ -37,8 +37,6 @@ class SUVTest(TestCase):
         self.assertEqual(response.status_code,200)
     
     def test_category_response_with_q(self):
-        response = Client().get('/category.html?q=suv')
-        response = Client().get('/category.html')
         category = Category.objects.create(car_type="suv")
         category.save()
         name = "Avanza"
@@ -49,7 +47,60 @@ class SUVTest(TestCase):
         description = "An avanza minibus"
         car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
         car.save()
+        response = Client().get('/category.html?q=suv')
         self.assertEqual(response.status_code,200)
+
+    def test_category_response_with_price(self):
+        category = Category.objects.create(car_type="suv")
+        category.save()
+        name = "Avanza"
+        username = "Bejo Paijo"
+        year = "2015"
+        city = "Bekasi"
+        price = 500000
+        description = "An avanza minibus"
+        car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
+        car.save()
+        response = Client().get('/category.html?price=500000')
+        self.assertEqual(response.status_code,200)
+
+    def test_category_response_with_year(self):
+        category = Category.objects.create(car_type="suv")
+        category.save()
+        name = "Avanza"
+        username = "Bejo Paijo"
+        year = "2015"
+        city = "Bekasi"
+        price = 500000
+        description = "An avanza minibus"
+        car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
+        car.save()
+        response = Client().get('/category.html?year=2015')
+        self.assertEqual(response.status_code,200)
+
+    def test_category_response_with_city(self):
+        category = Category.objects.create(car_type="suv")
+        category.save()
+        name = "Avanza"
+        username = "Bejo Paijo"
+        year = "2015"
+        city = "Bekasi"
+        price = 500000
+        description = "An avanza minibus"
+        car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
+        car.save()
+        response = Client().get('/category.html?city=bekasi')
+        self.assertEqual(response.status_code,200)
+    
+    def test_category_response_wrong_url(self):
+        response = Client().get('/category.html?a=bekasi')
+        html_response = response.content.decode('utf8')
+        self.assertIn('No matching car found.', html_response)
+
+    def test_category_response_not_found(self):
+        response = Client().get('/category.html?price=10')
+        html_response = response.content.decode('utf8')
+        self.assertIn('No matching car found.', html_response)
 
     # For testing whether homepage can be accessed or not
     def test_index_response(self):
@@ -272,11 +323,11 @@ class FunctionalTest(LiveServerTestCase):
 
         super().setUp()
         chrome_options = webdriver.ChromeOptions()
-        # chrome_options.add_argument('--no-sandbox')
-        # chrome_options.add_argument('--headless')
-        # chrome_options.add_argument('--disable-gpu')
-        # chrome_options.add_argument('--disable-dev-shm-usage')
-        # chrome_options.add_argument('window-size=1920x1480')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('window-size=1920x1480')
         self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path='chromedriver')
     
     def tearDown(self) :
