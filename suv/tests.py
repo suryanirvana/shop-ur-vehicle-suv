@@ -272,11 +272,11 @@ class FunctionalTest(LiveServerTestCase):
 
         super().setUp()
         chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--disable-gpu')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        chrome_options.add_argument('window-size=1920x1480')
+        # chrome_options.add_argument('--no-sandbox')
+        # chrome_options.add_argument('--headless')
+        # chrome_options.add_argument('--disable-gpu')
+        # chrome_options.add_argument('--disable-dev-shm-usage')
+        # chrome_options.add_argument('window-size=1920x1480')
         self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path='chromedriver')
     
     def tearDown(self) :
@@ -385,3 +385,42 @@ class FunctionalTest(LiveServerTestCase):
 
         response_content = self.driver.page_source
         self.assertIn("Invalid username or password", response_content)
+    
+    def test_create_article_return_article(self) :
+        self.driver.get(self.live_server_url)
+        response_content = self.driver.page_source
+
+        self.assertIn('Article', response_content)
+
+        time.sleep(5)
+
+        # Test when user signing up a new account
+        self.driver.find_element_by_id('articleBtn').click()
+
+        title = 'FunctionalTest'
+        date = '2020-12-12'
+        content = 'FunctionalTest Content'
+
+        time.sleep(5)
+
+        for i in title:
+            self.driver.find_element_by_id('id_title').send_keys(i)
+            time.sleep(0.1)
+
+        for i in date:
+            self.driver.find_element_by_id('id_date').send_keys(i)
+            time.sleep(0.1)
+
+        for i in content:
+            self.driver.find_element_by_id('id_content').send_keys(i)
+            time.sleep(0.1)
+        
+        self.driver.find_element_by_id('submitBtn').click()
+
+        time.sleep(5)  
+
+        response_content = self.driver.page_source
+
+        self.assertIn("FunctionalTest", response_content)
+        self.assertIn("2020-12-12", response_content)
+        self.assertIn("FunctionalTest Content", response_content)
