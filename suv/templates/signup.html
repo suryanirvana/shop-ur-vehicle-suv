@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #F0FAF9;
+            font: 20px/1.5 'Open Sans', sans-serif;
+        }
+        #logOut, #signUp {
+            width: 20%;
+            margin-left: 337px;
+            margin-right: 337px;
+            margin-bottom: 5px; 
+
+            background-image: linear-gradient(to right,#40D0CE,#1C2E7C); 
+            border-radius: 50px; color: #F0FAF9; 
+            box-shadow: -3px -3px 3px 0 rgba(255,255,255,0.7), 3px 3px 3px 0 rgba(0,0,0,0.2);
+        }
+        #logOut {
+           margin-left: 345px;
+           margin-right: 345px; 
+        }
+        #logOut:hover, #signUp:hover {
+            background-image: linear-gradient(to left,#40D0CE,#1C2E7C); 
+            box-shadow: inset 3px 3px 3px 0 rgba(0,0,0,0.2);
+        }
+        label{
+            font-weight: bold;
+        }
+        input{
+            padding: 5px;
+            padding-left:15px;
+            width: 600px;
+            background-color: #D8E7E6;
+            border: none;
+            font-size: 20px;
+            color: #909090;
+        }
+        #id_username {
+            margin-left: 130px;
+        }
+        #id_email{
+            margin-left: 93px;
+        }
+        #id_first_name {
+            margin-left: 128px;
+        }
+        #id_last_name {
+            margin-left: 130px;
+        }
+        #id_password1 {
+            margin-left: 135px;
+        }
+        #id_image {
+            margin-left: 168px;
+        }
+        ul li {
+            margin-left: 225px;
+        }
+        span{
+            margin-left: 243px;
+        }
+        #desc {
+            font-size: 15px; 
+            color: #909090;
+        }
+        #logIn, #homepage {
+            padding: 0; 
+            padding-bottom: 3px;
+            font-size: 15px; 
+            font-weight: bold; 
+            color: #40D0CE; 
+        }
+        #logIn:hover {
+            text-decoration: underline;
+        }
+        #profile {
+            margin-left: 335px;
+            margin-right: 335px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Spartan:400,600,700&display=swap" rel="stylesheet">
+
+    <title>Sign Up</title>
+</head>
+<body>
+    <div style="margin: 100px; margin-top: 0;">
+        <div class="row-lg-12 mb-5" style="padding-left: 120px; padding-right:120px;">
+            {% if user.is_authenticated %}
+            <h1 class="title text-center" style="color: #40D0CE; font-weight: bold; margin-top: 70px; margin-bottom: 20px; font-size: 60px;" id="welcome">Welcome, {{ request.user }}!</h1>
+            <img src="{{user.profile.profileImage}}" class="img-fluid align-middle" style="width: 200px; border-radius: 100px;" id="profile">
+            <br>
+            <a href="logout/"><button type="submit" class="btn align-middle" id="logOut">Log Out</button></a>
+            <a href="/"><h1 class="text-center" id="homepage">Homepage</h1></a>
+            {% else %}
+            <h1 class="text-center" style="color: #40D0CE; font-weight: bold; margin-top: 70px; margin-bottom: 20px; font-size: 40px;">CREATE A NEW ACCOUNT</h1>
+            <form method="post" >
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="col-md-12">
+                    <a href="index.html"><button class="btn align-middle" id="signUp">SIGN UP</button></a>
+                </div>
+            </form>
+            <h1 class="text-center" id="desc" >Already have an account? <a class="nav-link js-scroll-trigger" id="logIn" href="login.html">Log In</a></h1>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="   crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>

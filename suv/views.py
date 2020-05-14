@@ -1,4 +1,7 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from .forms import *
 import datetime
@@ -131,3 +134,38 @@ def favorite_api(request):
     with open("./favorite.json", 'w') as fp:
         json.dump(db, fp)
     return redirect('/category.html?q=' + request.POST['q'])
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        user_dict = {'username':username, 'password':password}
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        
+        else:
+            message = {'message':'Invalid username or password'}
+            return render(request, 'login.html', message)
+    
+    else :
+        return render(request, 'login.html')
+
+def logout_user(request):
+    request.session.flush()
+    logout(request)
+    return redirect('/')
+
+def signup_user(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.profileImage = form.cleaned_data.get('image')
+            user.save()
+            return redirect('/login.html')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form' : form})

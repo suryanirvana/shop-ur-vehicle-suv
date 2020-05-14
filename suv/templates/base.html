@@ -13,9 +13,7 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" media="screen" />
 
-    <link
-        href="https://fonts.googleapis.com/css?family=Josefin+Slab:700|Open+Sans:400,700,800|Roboto+Slab:700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:700|Open+Sans:400,700,800|Roboto+Slab:700&display=swap" rel="stylesheet">
 
     <style>
         html,
@@ -59,9 +57,15 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="index.html#about">About Us</a>
                 </li>
+                {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" id="register" href="#register">Register</a>
+                    <a class="nav-link js-scroll-trigger" id="register" href="signup.html">Hello, {{ request.user }}</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" id="register" href="signup.html">Register</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

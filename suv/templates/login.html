@@ -1,0 +1,111 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" media="screen" />
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:700|Open+Sans:400,700,800|Roboto+Slab:700&display=swap" rel="stylesheet">
+
+    <style>
+        html, body {
+            font: 20px/1.5 'Open Sans', sans-serif;
+        }
+        #username {
+            margin-left: auto; 
+            margin-right: auto; 
+            margin-bottom: 20px; 
+            max-width:350px;
+        }
+        .form-control {
+            background-color: #D8E7E6;
+            border: none;
+        }
+        .form-control:focus, select {
+            background-color: #D8E7E6;
+        }
+        .form-control::placeholder{
+            color: #909090;
+            background-color: #D8E7E6;
+        }
+        #password {
+            max-width:350px;
+            margin-left: auto; 
+            margin-right: auto; 
+            margin-bottom: 40px; 
+        }
+        #logIn {
+            width:250px; 
+            margin-left: auto; 
+            margin-right: auto; 
+
+            background-image: linear-gradient(to right,#40D0CE,#1C2E7C); 
+            border-radius: 50px; color: #F0FAF9; 
+            box-shadow: -3px -3px 3px 0 rgba(255,255,255,0.7), 3px 3px 3px 0 rgba(0,0,0,0.2);
+        }
+        #logIn:hover {
+            background-image: linear-gradient(to left,#40D0CE,#1C2E7C); 
+            box-shadow: inset 3px 3px 3px 0 rgba(0,0,0,0.2);
+        }
+        #desc {
+            font-size: 15px; 
+            color: #909090;
+        }
+        #signUp {
+            padding: 0; 
+            padding-bottom: 3px;
+            font-size: 15px; 
+            font-weight: bold; 
+            color: #40D0CE; 
+        }
+        #signUp:hover {
+            text-decoration: underline;
+        }
+        .invalid {
+            margin-bottom: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #8E0E00;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #google {
+            margin: 0;
+            font-size: 20px;
+        }
+    </style>
+
+    <title>Log In</title>
+  </head>
+  <body style="background-color: #D8E7E6;">
+    <div class="row logIn" style="margin: 70px; box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.5); border-radius: 100px;">
+        <div class="col-md-4" style="background-color: #F0FAF9;border-radius: 100px 0 0 100px; height: 80vh;">
+            <form method="POST">
+                {% csrf_token %}
+                <h1 class="align-middle text-center" style="color: #40D0CE; font-weight: bold; margin-top: 55px; margin-bottom: 20px; font-size: 40px;">LOGIN</h1>
+                <h1 class="invalid align-middle text-center">{{message}}</h1>
+                <h1 class="align-middle text-center username" style="color: #40D0CE; font-size: 20px;">Username</h1>
+                <input type="text" class="form-control align-middle" id="username" name="username" maxlength="40" placeholder="Username">
+                <h1 class="align-middle text-center password" style="color: #40D0CE; font-size: 20px;">Password</h1>
+                <input type="password" class="form-control" id="password" name="password" maxlength="40" placeholder="Password">
+                <h1 class="text-center"><a href="/" class="align-middle"><button type="submit" class="btn align-middle" id="logIn">LOGIN</button></a></h1>
+                <h1 class="text-center" id="desc" ><a class="btn align-middle" href="{% url 'social:begin' 'google-oauth2' %}" style="padding: 0; font-size: 15px; color: #40D0CE; font-weight: bold;">Login with Google</a></h1>
+                <h1 class="text-center" id="desc" >Don't have an account? <a href="signup.html" class="btn align-middle" id="signUp" >Sign Up</a></h1>
+            </form>
+        </div>
+        <div class="col-md-8" style="background-image: linear-gradient(to bottom right,#40D0CE,#1C2E7C);border-radius: 0 100px 100px 0;"></div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

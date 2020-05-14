@@ -1,12 +1,12 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase
-from django.test import Client
+from django.test import TestCase, Client, LiveServerTestCase
 from django.test import *
-from .views import *
 from django.http import HttpRequest
-#Importing Models
+from selenium import webdriver
+from .views import *
 from .models import *
 import datetime
+import time
 
 # TDD Unit Tests
 class SUVTest(TestCase):
@@ -261,3 +261,127 @@ class SUVTest(TestCase):
         # Test Disike
         response = Client().post('/favorite_api',{'unlike':'4' , 'q':'SUV'})
         self.assertEqual(response.status_code,302)
+
+class FunctionalTest(LiveServerTestCase):
+    def setUp(self) :
+        title = "A New Avaza Car For Rent"
+        date = "2017-12-11"
+        content = "A new cheap car is for rent."
+        
+        article = Article.objects.create(title=title,date = date, content = content)
+
+        super().setUp()
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('window-size=1920x1480')
+        self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path='chromedriver')
+    
+    def tearDown(self) :
+        self.driver.quit()
+        super().tearDown()
+
+    def test_user_register_then_login_then_logout(self) :
+        self.driver.get(self.live_server_url)
+        response_content = self.driver.page_source
+
+        self.assertIn('Register', response_content)
+
+        time.sleep(5)
+
+        # Test when user signing up a new account
+        self.driver.find_element_by_id('register').click()
+
+        first_name = 'Functional'
+        last_name = 'Test'
+        username = 'FunctionalTest'
+        email = 'functional@test.com'
+        password = 'WebDesign&Pr0gr4mm1n9'
+        url_image = 'https://i.picsum.photos/id/1005/5760/3840.jpg'
+
+        time.sleep(5)
+
+        for i in first_name:
+            self.driver.find_element_by_id('id_first_name').send_keys(i)
+            time.sleep(0.1)
+
+        for i in last_name:
+            self.driver.find_element_by_id('id_last_name').send_keys(i)
+            time.sleep(0.1)
+
+        for i in username:
+            self.driver.find_element_by_id('id_username').send_keys(i)
+            time.sleep(0.1)
+        
+        for i in email:
+            self.driver.find_element_by_id('id_email').send_keys(i)
+            time.sleep(0.1)
+
+        for i in password:
+            self.driver.find_element_by_id('id_password1').send_keys(i)
+            time.sleep(0.1)
+
+        for i in password:
+            self.driver.find_element_by_id('id_password2').send_keys(i)
+            time.sleep(0.1)
+        
+        for i in url_image:
+            self.driver.find_element_by_id('id_image').send_keys(i)
+            time.sleep(0.1)
+        
+        self.driver.find_element_by_id('signUp').click()
+
+        time.sleep(5)
+
+        # Test when user wants to log in
+        for i in username:
+            self.driver.find_element_by_id('username').send_keys(i)
+            time.sleep(0.1)
+        
+        for i in password:
+            self.driver.find_element_by_id('password').send_keys(i)
+            time.sleep(0.1)
+        
+        self.driver.find_element_by_id('logIn').click()
+
+        time.sleep(5)
+
+        response_content = self.driver.page_source
+        self.assertIn('FunctionalTest', response_content)
+
+        self.driver.find_element_by_id('register').click()
+
+        # Test when user wants to log out
+        self.driver.find_element_by_id('logOut').click()
+
+        time.sleep(5)
+
+        response_content = self.driver.page_source
+        self.assertIn('Register', response_content)
+    
+    def test_when_account_doesnt_exist_or_invalid_username_or_password(self):
+        self.driver.get(self.live_server_url)
+        response_content = self.driver.page_source
+
+        self.assertIn('Register', response_content)
+
+        time.sleep(5)
+
+        # Test when user signing up a new account
+        self.driver.find_element_by_id('register').click()
+
+        time.sleep(5)
+        
+        self.driver.find_element_by_id('logIn').click()
+
+        self.driver.find_element_by_id('username').send_keys("FunctionalTest")
+        self.driver.find_element_by_id('password').send_keys("FunctionalTest")
+
+        time.sleep(5)
+
+        self.driver.find_element_by_id('logIn').click()
+
+        response_content = self.driver.page_source
+        self.assertIn("Invalid username or password", response_content)

@@ -26,4 +26,5 @@ urlpatterns = [
     path('category.html', include('suv.urls')),  
     path('review.html', include('suv.urls')),  
     path('transaction.html', include('suv.urls')),  
+    path('', include('social_django.urls', namespace='social')),
 ]
