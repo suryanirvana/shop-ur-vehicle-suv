@@ -94,11 +94,13 @@ class SUVTest(TestCase):
     
     def test_category_response_wrong_url(self):
         response = Client().get('/category.html?a=bekasi')
-        self.assertEqual(response.status_code,200)
+        html_response = response.content.decode('utf8')
+        self.assertIn('No matching car found.', html_response)
 
     def test_category_response_not_found(self):
         response = Client().get('/category.html?price=10')
-        self.assertEqual(response.status_code,200)
+        html_response = response.content.decode('utf8')
+        self.assertIn('No matching car found.', html_response)
 
     # For testing whether homepage can be accessed or not
     def test_index_response(self):
