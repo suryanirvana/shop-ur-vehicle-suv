@@ -9,6 +9,9 @@ import datetime
 import json
 
 # Create your views here.
+counter = 0
+id = 999999
+
 def index(request):
     ln = len(Article.objects.all())-1
     article = Article.objects.all().values()[ln]
@@ -197,14 +200,22 @@ def articles(request):
 
 @csrf_exempt
 def likearticles(request):
+    global counter
+    global id
     data = json.loads(request.body)
 
     articles = Article.objects.get(id= data['id'])
     articles.like += 1
-    articles.save()
 
+    temp_id = data['id']
 
-    # response = str()
+    if ((counter <= 0) & (id != temp_id)):
+        counter += 1
+        id = data['id']
+        articles.save()
+    
+    elif(id == temp_id):
+        counter = 0
 
     return JsonResponse({
         'likeCount' : articles.like

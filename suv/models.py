@@ -22,6 +22,7 @@ class Article(models.Model):
     title = models.TextField(max_length=1000)
     date = models.TextField(max_length=1000)
     content = models.TextField(max_length=1000)
+    like = models.IntegerField(default=0)
 
 class Review(models.Model):
     username = models.TextField(max_length=1000)

@@ -32,9 +32,17 @@
 	<div style="max-height: 3000px; overflow-y: scroll;" class="content">
 		{% for article in article_list %}
 			<div class="row articleBox">
-				<h1 class="articleTitle" style="margin-left: 0; width: 100%;">{{ article.title }}</h1>
+				<h1 class="articleTitle" style="margin-left: 0;">{{ article.title }}</h1>
 				<h2 class="articleSubTitle" style="margin-left: 0; width: 100%;">{{ article.date }}</h2>
-				<p class="articleText">{{ article.content }}</p>
+				<p class="articleText" style="width: 100%;">{{ article.content }}</p>
+				<br>
+				<p style="margin:0;">Likes: </p>
+				<p id='like{{ article.id }}' style="margin: 0;"></p>
+				{% if user.is_authenticated %}
+				<button class='btn' type='button' onclick="likearticles({{ article.id }})" id='likeBtn{{ article.id }}' style="padding: 0;">Like</button>
+				{% else %}
+				<button class='btn' type='button' id='likeBtn{{ article.id }}'><a href="signup.html">Like</a></button>
+				{% endif %}
 			</div>
 		{% endfor %}
 	</div>
