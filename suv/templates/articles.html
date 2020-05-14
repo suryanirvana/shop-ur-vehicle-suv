@@ -1,32 +1,41 @@
 {% extends 'base.html' %}
 <!doctype html>
 {% load static %}
-<html lang="en"><head>
-  <title>Articles</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+
+<script src="{% static 'js/script.js' %}"></script> 
 
 {% block content %}
 <body style="overflow-x:hidden; background-color:#D8E7E6;">
 	
 	<div class="row">
-		<h1 class="title text-center" style="margin-top: 20vh; width: 100%; text-align: center; font-weight: bold; color: #08154A;">A R T I C L E S</h1>
+		<h1 class="title text-center" style="margin-top: 30vh; width: 100%; text-align: center; font-weight: bold; color: #08154A;">A R T I C L E S</h1>
 		<div class="line" style="width: 200px; height: 15px; margin: 15px auto; background-color: #40D0CE; border-radius: 15px;"></div>
 	</div>
+	<div class="form" id="rent">
+		{% csrf_token %}
+		<div class="form-group">
+			<label for="title" class="expl">{{articleForm.title.label_tag}}</label>
+			{{articleForm.title}}
+		</div>
+		<div class="form-group">
+			<label for="date" class="expl">{{articleForm.date.label_tag}} (YYYY-MM-DD)</label>
+			{{articleForm.date}}
+		</div>
+		<div class="form-group">
+			<label for="name" class="expl">{{articleForm.content.label_tag}}</label>
+			{{articleForm.content}}
+		</div>
+		<button id="submitBtn" onclick="articles()">Submit</button>
+	</div>
+
 	
-	<div style="max-height: 1000px; overflow-y: scroll;">
+	<div style="max-height: 3000px; overflow-y: scroll;" class="content">
 		{% for article in article_list %}
-				<div class="row articleBox">
-					<h1 class="articleTitle" style="margin-left: 0;">{{ article.title }}</h1>
-					<h2 class="articleSubTitle" style="margin-left: 0;">{{ article.date }}</h2>
-					<p class="articleText">{{ article.content }}</p>
-				</div>
+			<div class="row articleBox">
+				<h1 class="articleTitle" style="margin-left: 0; width: 100%;">{{ article.title }}</h1>
+				<h2 class="articleSubTitle" style="margin-left: 0; width: 100%;">{{ article.date }}</h2>
+				<p class="articleText">{{ article.content }}</p>
+			</div>
 		{% endfor %}
 	</div>
 </body>

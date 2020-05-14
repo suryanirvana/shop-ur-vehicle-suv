@@ -9,6 +9,20 @@ CAR_TYPE = [
     ('SEDAN','SEDAN'),
 ]
 
+class ArticleForm(forms.Form):
+    title = forms.CharField(widget=forms.TextInput(attrs={
+        'class' : 'form-control',
+        'maxlength' : '1000',
+    }))
+    date = forms.DateField(widget=forms.TextInput(attrs={
+        'class' : 'form-control',
+        'maxlength' : '1000',
+    }))
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        'class' : 'form-control',
+        'maxlength' : '1000',
+    }))
+
 class ReviewForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class' : 'form-control',

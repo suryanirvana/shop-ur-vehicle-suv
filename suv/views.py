@@ -1,10 +1,12 @@
-from django.shortcuts import render,redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from .forms import *
 import datetime
+import json
 
 # Create your views here.
 def index(request):
@@ -71,7 +73,7 @@ def transaction(request):
     return render(request,'transaction.html',response)
 
 def article(request):
-    response = {'article_list':Article.objects.all().values()}
+    response = {'article_list':Article.objects.all(), 'articleForm':ArticleForm()}
     return render(request,'articles.html',response)
 
 def category(request):
@@ -169,3 +171,41 @@ def signup_user(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form' : form})
+
+
+@csrf_exempt
+def articles(request):
+    data = json.loads(request.body)
+    article = Article.objects.create(
+        title = data['title'],
+        date = data['date'],
+        content = data['content']
+    )
+
+    article_list = []
+
+    article_list.append({
+        'id' : article.id,
+        'title': article.title,
+        'date': article.date,
+        'content': article.content,
+
+    })
+    return JsonResponse({
+        'article' : article_list
+    })
+
+@csrf_exempt
+def likearticles(request):
+    data = json.loads(request.body)
+
+    articles = Article.objects.get(id= data['id'])
+    articles.like += 1
+    articles.save()
+
+
+    # response = str()
+
+    return JsonResponse({
+        'likeCount' : articles.like
+    })

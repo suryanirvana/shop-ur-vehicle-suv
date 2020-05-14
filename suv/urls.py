@@ -13,4 +13,6 @@ urlpatterns = [
     path('login.html', login_user, name='login_user'),
     path('signup.html', signup_user, name='signup_user'),
     path('logout/', logout_user, name='logout'),
+    path('api/articles/', articles, name='articles'),
+    path('api/likearticles/', likearticles, name='likearticles'),
 ]

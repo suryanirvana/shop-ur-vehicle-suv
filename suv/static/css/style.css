@@ -329,10 +329,14 @@ footer#copyright h1{
     color: #08154A;
 }
 
-.form#rent .form-group input {
+.form#rent .form-group input, .form#rent .form-group textarea {
     border-radius: 20px;
     background-color: transparent;
     box-shadow: 3px 3px 3px 0 rgba(0,0,0,0.2);
+}
+
+.form#rent .form-group textarea {
+	padding: 10px;
 }
 
 .form#rent .form-group select {
