@@ -85,38 +85,71 @@ def category(request):
     username = "admin"
     fav_cars  =  load_db()[username]
     #Handle if no query is passed
-    if 'q' not in req:
-        response = {'title':'No matching car found.','car_list':[]}
-        return render(request,'category.html',response)
-    else:
+    if 'q' in req:
         response = {'title':req['q'],'car_list':[]}
+    elif 'price' in req:
+        response = {'title':req['price'],'car_list':[]}
+    elif 'year' in req:
+        response = {'title':req['year'],'car_list':[]}
+    elif 'city' in req:
+        response = {'title':req['city'],'car_list':[]}
+    else:
+        response = {'title':'No matching car found.','car_list':[]}
+        #return render(request,'category.html',response)
 
     #Making Car List
     car_all = list(Car.objects.all().values())
     car_list = list()
 
-    #Set category for each cars
-    for i in range(len(car_all)):
-        car_all[i]['category'] = Category.objects.get(pk=car_all[i]['category_id']).car_type
 
-    #List all cars that fit the category
-    for i in car_all:
-        try:
+    if 'q' in req:
+        #Set category for each cars
+        for i in range(len(car_all)):
+            car_all[i]['category'] = Category.objects.get(pk=car_all[i]['category_id']).car_type
+
+        #List all cars that fit the category
+        for i in car_all:
             if i['category'].lower() == req['q'].lower():
-                car_list.append(i)
-        except:
-            pass
+                    car_list.append(i)  
+    elif 'price' in req:
+        #List all cars that fit the category
+        for i in car_all:
+            if i['price'] <= req['price']:
+                    car_list.append(i)
+    elif 'year' in req:
+        #List all cars that fit the category
+        for i in car_all:
+            if i['year'] == req['year']:
+                    car_list.append(i)
+    elif 'city' in req:
+        #List all cars that fit the category
+        for i in car_all:
+            if i['city'].lower() == req['city'].lower():
+                    car_list.append(i)
+    else:
+        pass
+
 
     #If there is no car, then say no matching cars
     if (not car_list):
         response = {'title':'No matching car found.','car_list':[]}
-        return render(request,'category.html',response)
-
-    #Making Recomended Car
+        #return render(request,'category.html',response)
+    
     try:
-        response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
+        if 'q' in req:    
+        #Making Recomended Car
+            response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
+        elif 'price' in req:
+            response = {'title':req['price'],'recomended_car':car_list[0],'car_list':car_list}
+        elif 'year' in req:
+            response = {'title':req['year'],'recomended_car':car_list[0],'car_list':car_list}
+        elif 'city' in req:
+            response = {'title':req['city'],'recomended_car':car_list[0],'car_list':car_list}
+        else:
+            pass
     except:
-        response = {'title':req['q'],'car_list':{}}
+        response = {'title':'No matching car found.','car_list':[]}
+        
 
     response['fav_cars'] = fav_cars
     return render(request,'category.html',response)

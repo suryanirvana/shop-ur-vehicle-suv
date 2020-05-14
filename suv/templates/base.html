@@ -39,11 +39,15 @@
             <a href="index.html"><img src="/static/img/LOGO.svg"
                     style="width: 150px; margin-left: 4vw;" href="#home"></a>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <form action="category.html" method="GET" style="margin: 20px 20px 20px 10px; padding: 10px 20px">
+                <li class="nav-item" style="text-align: left;">
+                    <form id="searchForm" action="category.html" method="GET" style="margin: 20px 20px 0px 0px; padding: 20px 10px 0px 0px">
                         <input type="text" name="q" placeholder="Search category"></input>
                         <input type="submit" value="search"></input>
                     </form>
+                    <button id="categoryButton" onclick="changeSearch('q', 'category')">category</button>
+                    <button id="priceButton" onclick="changeSearch('price', 'price')">price</button>
+                    <button id="yearButton" onclick="changeSearch('year', 'year')">year</button>
+                    <button id="cityButton" onclick="changeSearch('city', 'city')">city</button>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger yellow-text" href="review.html">Review</a>
@@ -83,6 +87,14 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="{% static 'js/script.js' %}"></script>  
+    <script>
+        function changeSearch(name, attribute) {
+            form = document.getElementById('searchForm');
+            form.innerHTML = "";
+            form.innerHTML += "<input type='text' name='" + name + "' placeholder='Search " + attribute + "'></input>";
+            form.innerHTML += "<input type='submit' value='search'></input>";
+        }
+    </script>
 </body>
 
 </html>
