@@ -67,6 +67,28 @@
 						</div>
 					</div>
 				</form>
+				{% if user.is_authenticated %}
+				<form action="/transaction.html" method="POST" style="width: 100%;">
+					{% csrf_token %}
+						<input class="form-control" id="name" type="hidden" name="name" maxlength="255" required
+							value="{{ car.name }}">
+						<input class="form-control" id="car_type" type="hidden" name="car_type" maxlength="255" required
+							value="{{ car.category }}">
+						<input class="form-control" id="year" type="hidden" name="year" maxlength="255" required
+							value="{{ car.year }}">
+						<input class="form-control" id="location" type="hidden" name="location" maxlength="255" required
+							value="{{ car.location }}">	
+						<input class="form-control" id="owner" type="hidden" name="owner" maxlength="255" required
+							value="{{ car.owner }}">
+					<br/>
+
+					<div class="text-center algin-middle" style="width: 100%;">
+						<button type="submit" id="submitBtn" class="btn btn-info">Rent</button>
+					</div>
+				</form>
+				{% else %}
+				<button onclick="top.location = 'signup.html'; ">Rent</button>
+				{% endif %}
 			</div>
 		</div>
 		<div class="collapse categoryBoxDown" id="collapseExample{{car.id}}">

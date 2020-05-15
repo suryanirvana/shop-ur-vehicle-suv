@@ -87,11 +87,18 @@ def category(request):
     for i in all_fav:
         if (i['user_id'] == request.user.id):
             db.append(i['car_id'])
+    
     # Handle if no query is passed
-    if 'q' not in req:
+    if 'q' in req:
+        response = {'title':req['q'],'car_list':[]}
+    elif 'price' in req:
+        response = {'title':req['price'],'car_list':[]}
+    elif 'year' in req:
+        response = {'title':req['year'],'car_list':[]}
+    elif 'city' in req:
+        response = {'title':req['city'],'car_list':[]}
+    else:
         response = {'title':'No matching car found.','car_list':[]}
-        return render(request,'category.html',response)
-    response = {'title':req['q'],'car_list':[]}
 
     #Making Car List
     car_all = list(Car.objects.all().values())
@@ -100,25 +107,79 @@ def category(request):
     #Set category for each cars
     for i in range(len(car_all)):
         car_all[i]['category'] = Category.objects.get(pk=car_all[i]['category_id']).car_type
+    
+    if 'q' in req:
+        #Set category for each cars
+        for i in range(len(car_all)):
+            car_all[i]['category'] = Category.objects.get(pk=car_all[i]['category_id']).car_type
 
-    #List all cars that fit the category
-    trans_list = set([i['name'] for i in Transaction.objects.all().values() if i['user_id'] == request.user.id])
+        # #List all cars that fit the category
+        # for i in car_all:
+        #     if i['category'].lower() == req['q'].lower():
+        #             car_list.append(i)  
+    elif 'price' in req:
+        #List all cars that fit the category
+        for i in car_all:
+            if i['price'] <= req['price']:
+                    car_list.append(i)
+    elif 'year' in req:
+        #List all cars that fit the category
+        for i in car_all:
+            if i['year'] == req['year']:
+                    car_list.append(i)
+    elif 'city' in req:
+        #List all cars that fit the category
+        for i in car_all:
+            if i['city'].lower() == req['city'].lower():
+                    car_list.append(i)
+    else:
+        pass
+    
 
-    for i in car_all:
-        car_obj = Car.objects.get(pk=i['id'])
-        if (i['category'].lower() == req['q'].lower()) and (car_obj.name not in trans_list):
-            car_list.append(i)
+    #Making Recomended Car
+    try:
+        if 'q' in req:    
+        #Making Recomended Car
+            #List all cars that fit the category
+            trans_list = set([i['name'] for i in Transaction.objects.all().values() if i['user_id'] == request.user.id])
+            for i in car_all:
+                car_obj = Car.objects.get(pk=i['id'])
+                if (i['category'].lower() == req['q'].lower()) and (car_obj.name not in trans_list):
+                    car_list.append(i)
+            response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
+        elif 'price' in req:
+            #List all cars that fit the category
+            trans_list = set([i['name'] for i in Transaction.objects.all().values() if i['user_id'] == request.user.id])
+            for i in car_all:
+                car_obj = Car.objects.get(pk=i['id'])
+                if (i['price'].lower() == req['price'].lower()) and (car_obj.name not in trans_list):
+                    car_list.append(i)
+            response = {'title':req['price'],'recomended_car':car_list[0],'car_list':car_list}
+        elif 'year' in req:
+            #List all cars that fit the category
+            trans_list = set([i['name'] for i in Transaction.objects.all().values() if i['user_id'] == request.user.id])
+            for i in car_all:
+                car_obj = Car.objects.get(pk=i['id'])
+                if (i['year'].lower() == req['year'].lower()) and (car_obj.name not in trans_list):
+                    car_list.append(i)
+            response = {'title':req['year'],'recomended_car':car_list[0],'car_list':car_list}
+        elif 'city' in req:
+            #List all cars that fit the category
+            trans_list = set([i['name'] for i in Transaction.objects.all().values() if i['user_id'] == request.user.id])
+            for i in car_all:
+                car_obj = Car.objects.get(pk=i['id'])
+                if (i['city'].lower() == req['city'].lower()) and (car_obj.name not in trans_list):
+                    car_list.append(i)
+            response = {'title':req['city'],'recomended_car':car_list[0],'car_list':car_list}
+        else:
+            pass
+    except:
+        response = {'title':'No matching car found yaa.','car_list':[]}
 
     #If there is no car, then say no matching cars
     if (not car_list):
         response = {'title':'No matching car found.','car_list':[]}
         return render(request,'category.html',response)
-
-    #Making Recomended Car
-    try:
-        response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
-    except:
-        response = {'title':req['q'],'car_list':{}}
 
     response['fav_cars'] = db
     return render(request,'category.html',response)
