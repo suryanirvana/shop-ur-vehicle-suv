@@ -359,7 +359,6 @@ class SUVTest(TestCase):
         response =  self.client.post('/favorite_api',{'unlike':car.id , 'q':category.car_type})
         self.assertEqual(response.status_code,302)
 
-'''
 class FunctionalTest(LiveServerTestCase):
     def setUp(self) :
         title = "A New Avaza Car For Rent"
@@ -522,4 +521,3 @@ class FunctionalTest(LiveServerTestCase):
         self.assertIn("FunctionalTest", response_content)
         self.assertIn("2020-12-12", response_content)
         self.assertIn("FunctionalTest Content", response_content)
-        '''

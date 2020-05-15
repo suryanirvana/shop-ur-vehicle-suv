@@ -33,5 +33,5 @@ about tourist destinations in order to recommend users to rent a car to go to th
 ## Role for Stage 2:
 1. Yafi Ahsan Hakim 				: Implemented feature "Car Suggetions", added more test cases
 2. I Made Gede Surya Nirvana Prima 	: Added test cases, update test cases, fixed some bugs, implemented feature "Authentication", helped Ano with his feature, fixed UI issues
-3. Fransiscus Emmanuel Bunaren 		: Added test cases, update test cases, fixed some bugs, Integrated article and homepage, implemented feature "Favorite Car" and favorite car page, help Surya intergrating authenticated user with transaction
+3. Fransiscus Emmanuel Bunaren 		: Added test cases, update test cases, fixed some bugs, Integrated article and homepage, implemented feature "Favorite Car" and favorite car page, help Surya integrating authenticated user with transaction
 4. Muhammad Fadhil Qorano 			: Implemented feature "Asynchronous Article Rating", added more test cases
