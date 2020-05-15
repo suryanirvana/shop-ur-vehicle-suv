@@ -14,7 +14,7 @@ class ArticleForm(forms.Form):
         'class' : 'form-control',
         'maxlength' : '1000',
     }))
-    date = forms.DateField(widget=forms.TextInput(attrs={
+    date = forms.DateField(widget=forms.DateInput(attrs={
         'class' : 'form-control',
         'maxlength' : '1000',
     }))

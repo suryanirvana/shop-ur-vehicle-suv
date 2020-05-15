@@ -390,13 +390,36 @@ class FunctionalTest(LiveServerTestCase):
         self.driver.quit()
         super().tearDown()
 
-    def test_user_register_then_login_then_logout(self) :
+    def test_user_register_then_login_then_like_article_then_logout(self) :
         self.driver.get(self.live_server_url)
         response_content = self.driver.page_source
 
         self.assertIn('Register', response_content)
 
         time.sleep(5)
+
+        # Test for creating new article
+        self.driver.find_element_by_id('articleBtn').click()
+
+        title = 'FunctionalTest'
+        date = '2020-12-12'
+        content = 'FunctionalTest Content'
+
+        time.sleep(5)
+
+        for i in title:
+            self.driver.find_element_by_id('id_title').send_keys(i)
+            time.sleep(0.1)
+
+        for i in date:
+            self.driver.find_element_by_id('id_date').send_keys(i)
+            time.sleep(0.1)
+
+        for i in content:
+            self.driver.find_element_by_id('id_content').send_keys(i)
+            time.sleep(0.1)
+        
+        self.driver.find_element_by_id('submitBtn').click()
 
         # Test when user signing up a new account
         self.driver.find_element_by_id('register').click()
@@ -458,9 +481,23 @@ class FunctionalTest(LiveServerTestCase):
         response_content = self.driver.page_source
         self.assertIn('FunctionalTest', response_content)
 
-        self.driver.find_element_by_id('register').click()
+        # Test for like article
+        self.driver.find_element_by_id('articleBtn').click()
+
+        time.sleep(5)
+
+        try:
+            self.driver.find_element_by_id('likeBtn2').click()
+        except:
+            self.driver.find_element_by_id('likeBtn1').click()
+
+        response_content = self.driver.page_source
+        self.assertIn('Likes: ', response_content)
+        self.assertIn('1', response_content)
 
         # Test when user wants to log out
+        self.driver.find_element_by_id('register').click()
+
         self.driver.find_element_by_id('logOut').click()
 
         time.sleep(5)
@@ -492,120 +529,3 @@ class FunctionalTest(LiveServerTestCase):
 
         response_content = self.driver.page_source
         self.assertIn("Invalid username or password", response_content)
-    
-    def test_create_article_return_article(self) :
-        self.driver.get(self.live_server_url)
-        response_content = self.driver.page_source
-
-        self.assertIn('Article', response_content)
-
-        time.sleep(5)
-
-        # Test when user signing up a new account
-        self.driver.find_element_by_id('articleBtn').click()
-
-        title = 'FunctionalTest'
-        date = '2020-12-12'
-        content = 'FunctionalTest Content'
-
-        time.sleep(5)
-
-        for i in title:
-            self.driver.find_element_by_id('id_title').send_keys(i)
-            time.sleep(0.1)
-
-        for i in date:
-            self.driver.find_element_by_id('id_date').send_keys(i)
-            time.sleep(0.1)
-
-        for i in content:
-            self.driver.find_element_by_id('id_content').send_keys(i)
-            time.sleep(0.1)
-        
-        self.driver.find_element_by_id('submitBtn').click()
-
-        time.sleep(5)  
-
-        response_content = self.driver.page_source
-
-        self.assertIn("FunctionalTest", response_content)
-        self.assertIn("2020-12-12", response_content)
-        self.assertIn("FunctionalTest Content", response_content)
-    
-    def test_like_article(self) :
-        self.driver.get(self.live_server_url)
-        response_content = self.driver.page_source
-
-        self.assertIn('Register', response_content)
-
-        time.sleep(5)
-
-        # Test when user signing up a new account
-        self.driver.find_element_by_id('register').click()
-
-        first_name = 'Functional'
-        last_name = 'Test'
-        username = 'FunctionalTest'
-        email = 'functional@test.com'
-        password = 'WebDesign&Pr0gr4mm1n9'
-        url_image = 'https://i.picsum.photos/id/1005/5760/3840.jpg'
-
-        time.sleep(5)
-
-        for i in first_name:
-            self.driver.find_element_by_id('id_first_name').send_keys(i)
-            time.sleep(0.1)
-
-        for i in last_name:
-            self.driver.find_element_by_id('id_last_name').send_keys(i)
-            time.sleep(0.1)
-
-        for i in username:
-            self.driver.find_element_by_id('id_username').send_keys(i)
-            time.sleep(0.1)
-        
-        for i in email:
-            self.driver.find_element_by_id('id_email').send_keys(i)
-            time.sleep(0.1)
-
-        for i in password:
-            self.driver.find_element_by_id('id_password1').send_keys(i)
-            time.sleep(0.1)
-
-        for i in password:
-            self.driver.find_element_by_id('id_password2').send_keys(i)
-            time.sleep(0.1)
-        
-        for i in url_image:
-            self.driver.find_element_by_id('id_image').send_keys(i)
-            time.sleep(0.1)
-        
-        self.driver.find_element_by_id('signUp').click()
-
-        time.sleep(5)
-
-        # Test when user wants to log in
-        for i in username:
-            self.driver.find_element_by_id('username').send_keys(i)
-            time.sleep(0.1)
-        
-        for i in password:
-            self.driver.find_element_by_id('password').send_keys(i)
-            time.sleep(0.1)
-        
-        self.driver.find_element_by_id('logIn').click()
-
-        time.sleep(5)
-
-        response_content = self.driver.page_source
-        self.assertIn('FunctionalTest', response_content)
-
-        self.driver.find_element_by_id('articleBtn').click()
-
-        time.sleep(5)
-
-        self.driver.find_element_by_id('likeBtn1').click()
-
-        response_content = self.driver.page_source
-        self.assertIn('Likes: ', response_content)
-        self.assertIn('1', response_content)
