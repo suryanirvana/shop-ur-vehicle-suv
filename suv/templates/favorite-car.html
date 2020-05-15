@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+<!doctype html>
+{% load static %}
+<html lang="en"><head>
+  <title>Category</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+</style></head>
+
+{% block content %}
+<body style="overflow-x:hidden; background-color:#D8E7E6;">
+	
+	<div class="row">
+		<h1 class="title3">FAVORITE CAR</h1>
+		<div class="rectangle"></div>
+	</div>
+	
+	{% for car in cars%}
+		<div style="margin:10vh;">
+			<h3 class="similarTitle">{{ car.name }}</big>
+			<li/>Category : {{ car.category.car_type }}
+			</li>Price : {{ car.price }}
+
+			<br/>
+			<form method="post" action="/favorite_api">
+				{% csrf_token %}
+				<input type="hidden" name='unlike' value="{{ car.id }}"></input>
+				<button class="btn btn-info">💔 Remove from favorite</button>
+			</form>
+		</div>
+	{% endfor %}
+
+	<br><br><br><br><br><br><br><br>
+</body>
+{% endblock %}
+</html>

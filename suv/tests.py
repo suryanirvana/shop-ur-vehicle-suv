@@ -64,20 +64,6 @@ class SUVTest(TestCase):
         response = Client().get('/category.html?price=500000')
         self.assertEqual(response.status_code,200)
 
-    def test_category_response_with_year(self):
-        category = Category.objects.create(car_type="suv")
-        category.save()
-        name = "Avanza"
-        username = "Bejo Paijo"
-        year = "2015"
-        city = "Bekasi"
-        price = 500000
-        description = "An avanza minibus"
-        car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
-        car.save()
-        response = Client().get('/category.html?year=2015')
-        self.assertEqual(response.status_code,200)
-
     def test_category_response_with_city(self):
         category = Category.objects.create(car_type="suv")
         category.save()
@@ -115,30 +101,6 @@ class SUVTest(TestCase):
         car.save()
         response = Client().get('/category.html?year=2015')
         self.assertEqual(response.status_code,200)
-
-    def test_category_response_with_city(self):
-        category = Category.objects.create(car_type="suv")
-        category.save()
-        name = "Avanza"
-        username = "Bejo Paijo"
-        year = "2015"
-        city = "Bekasi"
-        price = 500000
-        description = "An avanza minibus"
-        car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
-        car.save()
-        response = Client().get('/category.html?city=bekasi')
-        self.assertEqual(response.status_code,200)
-    
-    def test_category_response_wrong_url(self):
-        response = Client().get('/category.html?a=bekasi')
-        html_response = response.content.decode('utf8')
-        self.assertIn('No matching car found.', html_response)
-
-    def test_category_response_not_found(self):
-        response = Client().get('/category.html?price=10')
-        html_response = response.content.decode('utf8')
-        self.assertIn('No matching car found.', html_response)
 
     # For testing whether homepage can be accessed or not
     def test_index_response(self):
@@ -338,17 +300,73 @@ class SUVTest(TestCase):
 
         self.assertEqual(1, Review.objects.all().count())
 
-    def test_favorite_api(self):
-        # Clear Database
-        with open('./favorite.json','w+') as f:
-            f.write("{}")
+    def test_category_user(self):
+        # Test Like
+        category = Category.objects.create(car_type="suv")
+        category.save()
+
+        name = "Avanza"
+        username = "Bejo Paijo"
+        year = "2015"
+        city = "Bekasi"
+        price = 500000
+        description = "An avanza minibus"
+        password='volcano_sauce'
+        email = 'test@test.com'
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+
+        username2 = "hahahihi"
+        email2 = "sjdaldjdlkas@gmail.com"
+        password2 = "ajdjasl;jflkasdjlfkjasdl;jf;ldasjlkfaslkdjfoi;asdjop"
+        user2 = User.objects.create_user(username=username2, email=email2, password=password2)
+        user2.save()
+     
+        car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
+        car.save()
+        
+        self.client.login(username=username, password=password)
+        response =  self.client.get('/category.html?q=SUV')
+        self.assertEqual(response.status_code,200)
 
         # Test Like
-        response = Client().post('/favorite_api',{'like':'4' , 'q':'SUV'})
+        response =  self.client.post('/favorite_api',{'like':car.id , 'q':category.car_type})
+        self.assertEqual(response.status_code,302)
+
+        self.client.login(username=username2, password=password2)
+
+        response =  self.client.get('/category.html?q=SUV')
+        self.assertEqual(response.status_code,200)
+
+
+    def test_favorite_api(self):
+        # Test Like
+        category = Category.objects.create(car_type="suv")
+        category.save()
+
+        name = "Avanza"
+        username = "Bejo Paijo"
+        year = "2015"
+        city = "Bekasi"
+        price = 500000
+        description = "An avanza minibus"
+        password='volcano_sauce'
+        email = 'test@test.com'
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+     
+        car = Car.objects.create(name=name,username=username,category=category,year=year,city=city,price=price,description=description)
+        car.save()
+        
+        self.client.login(username=username, password=password)
+
+        response =  self.client.post('/favorite_api',{'like':car.id , 'q':category.car_type})
         self.assertEqual(response.status_code,302)
 
         # Test Disike
-        response = Client().post('/favorite_api',{'unlike':'4' , 'q':'SUV'})
+        response =  self.client.post('/favorite_api',{'unlike':car.id , 'q':category.car_type})
         self.assertEqual(response.status_code,302)
 
 class FunctionalTest(LiveServerTestCase):

@@ -18,6 +18,10 @@ class Car(models.Model):
     description = models.TextField(max_length=1000,default="")
     car_image = models.ImageField(null=True, blank=True, upload_to="{% static 'img' %}")
 
+class FavoriteCar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+
 class Article(models.Model):
     title = models.TextField(max_length=1000)
     date = models.TextField(max_length=1000)

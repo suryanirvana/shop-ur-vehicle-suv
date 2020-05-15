@@ -82,96 +82,74 @@ def article(request):
 def category(request):
     #Get GET REQUEST
     req = request.GET
-    username = "admin"
-    fav_cars  =  load_db()[username]
+    all_fav = FavoriteCar.objects.all().values()
+    db = []
+    for i in all_fav:
+        if i['user_id'] == request.user.id:
+            db.append(i['car_id'])
     #Handle if no query is passed
-    if 'q' in req:
-        response = {'title':req['q'],'car_list':[]}
-    elif 'price' in req:
-        response = {'title':req['price'],'car_list':[]}
-    elif 'year' in req:
-        response = {'title':req['year'],'car_list':[]}
-    elif 'city' in req:
-        response = {'title':req['city'],'car_list':[]}
-    else:
+    if 'q' not in req:
         response = {'title':'No matching car found.','car_list':[]}
-        #return render(request,'category.html',response)
+        return render(request,'category.html',response)
+    response = {'title':req['q'],'car_list':[]}
 
     #Making Car List
     car_all = list(Car.objects.all().values())
     car_list = list()
 
+    #Set category for each cars
+    for i in range(len(car_all)):
+        car_all[i]['category'] = Category.objects.get(pk=car_all[i]['category_id']).car_type
 
-    if 'q' in req:
-        #Set category for each cars
-        for i in range(len(car_all)):
-            car_all[i]['category'] = Category.objects.get(pk=car_all[i]['category_id']).car_type
-
-        #List all cars that fit the category
-        for i in car_all:
+    #List all cars that fit the category
+    for i in car_all:
+        try:
             if i['category'].lower() == req['q'].lower():
-                    car_list.append(i)  
-    elif 'price' in req:
-        #List all cars that fit the category
-        for i in car_all:
-            if i['price'] <= req['price']:
-                    car_list.append(i)
-    elif 'year' in req:
-        #List all cars that fit the category
-        for i in car_all:
-            if i['year'] == req['year']:
-                    car_list.append(i)
-    elif 'city' in req:
-        #List all cars that fit the category
-        for i in car_all:
-            if i['city'].lower() == req['city'].lower():
-                    car_list.append(i)
-    else:
-        pass
-
+                car_list.append(i)
+        except BaseException:
+            pass
 
     #If there is no car, then say no matching cars
     if (not car_list):
         response = {'title':'No matching car found.','car_list':[]}
-        #return render(request,'category.html',response)
-    
-    try:
-        if 'q' in req:    
-        #Making Recomended Car
-            response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
-        elif 'price' in req:
-            response = {'title':req['price'],'recomended_car':car_list[0],'car_list':car_list}
-        elif 'year' in req:
-            response = {'title':req['year'],'recomended_car':car_list[0],'car_list':car_list}
-        elif 'city' in req:
-            response = {'title':req['city'],'recomended_car':car_list[0],'car_list':car_list}
-        else:
-            pass
-    except:
-        response = {'title':'No matching car found.','car_list':[]}
-        
+        return render(request,'category.html',response)
 
-    response['fav_cars'] = fav_cars
+    #Making Recomended Car
+    try:
+        response = {'title':req['q'],'recomended_car':car_list[0],'car_list':car_list}
+    except:
+        response = {'title':req['q'],'car_list':{}}
+
+    response['fav_cars'] = db
     return render(request,'category.html',response)
 
-def load_db():
-    with open("./favorite.json") as f:
-        like_db = json.load(f)
-    return like_db
-
 def favorite_api(request):
-    username = 'admin'
-    db = load_db()
-    if username not in db:
-        db[username] = []
+    all_fav = FavoriteCar.objects.all().values()
+    db = []
+    for i in all_fav:
+        if i['user_id'] == request.user.id:
+            db.append(i['car_id'])
     if 'like' in request.POST:
-        if request.POST['like'] not in db[username]:
-            db[username].append(int(request.POST['like']))
-    elif 'unlike' in request.POST:
-        db[username].remove(int(request.POST['unlike']))
-    with open("./favorite.json", 'w') as fp:
-        json.dump(db, fp)
-    return redirect('/category.html?q=' + request.POST['q'])
+        if request.POST['like'] not in db:
+            tmp = FavoriteCar.objects.create(user_id=request.user.id,car_id=request.POST['like'])
+            tmp.save()
+    elif 'unlike' in request.POST and db:
+        tmp = FavoriteCar.objects.get(user_id=request.user.id,car_id=request.POST['unlike'])
+        tmp.delete()
+    if 'q' in request.POST:
+        return redirect('/category.html?q=' + request.POST['q'])
+    else:
+        return redirect('/favorite_car_list')
+
+def favorite_car_list(request):
+    all_fav = FavoriteCar.objects.all().values()
+    db = []
+    for i in all_fav:
+        if i['user_id'] == request.user.id:
+            tmp = i['car_id']
+            tmp = Car.objects.get(pk=tmp)
+            db.append(tmp)
+    return render(request,'favorite-car.html',{'cars':db})
 
 def login_user(request):
     if request.method == "POST":

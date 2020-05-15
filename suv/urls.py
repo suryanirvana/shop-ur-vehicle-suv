@@ -10,6 +10,7 @@ urlpatterns = [
     path('transaction.html', transaction, name='transaction'),
     path('review.html', review, name='review'),
     path('favorite_api', favorite_api, name='favorite_api'),
+    path('favorite_car_list', favorite_car_list, name='favorite_car_list'),
     path('login.html', login_user, name='login_user'),
     path('signup.html', signup_user, name='signup_user'),
     path('logout/', logout_user, name='logout'),
