@@ -127,7 +127,6 @@ class CarForm(forms.Form):
         'style' : 'border-radius:20px;',
         'label' : '',
     }))
-    car_image = forms.FileField()
 
 class SignUpForm(UserCreationForm):
     image = forms.URLField(required=True)

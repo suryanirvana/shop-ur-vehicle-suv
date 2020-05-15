@@ -24,6 +24,30 @@
             padding: 0;
             overflow-x: hidden;
         }
+        #searchBar {
+            background-color: transparent;
+            border-radius: 20px;
+            border-color: #40D0CE;
+        }
+        #searchBtn {
+            background-color: #F0FAF9;
+            background: -webkit-linear-gradient(45deg, #1C2E7C, #40D0CE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            border-radius: 30px;
+            border-color: transparent;
+            box-shadow: -3px -3px 3px 0 rgba(255,255,255,0.7), 3px 3px 3px 0 rgba(0,0,0,0.2);
+
+            padding: 4px 15px;
+            font-weight: bold;
+        }
+        #searchBtn:hover {
+            background: -webkit-linear-gradient(45deg, #40d0CE, #1C2E7C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            box-shadow: inset -3px -3px 3px 0 rgba(255,255,255,0.7), inset 3px 3px 3px 0 rgba(0,0,0,0.2);
+        }
     </style>
 
     <title>Shop Ur Vehicle!</title>
@@ -37,17 +61,24 @@
         </button>
         <div class="collapse navbar-collapse ml-auto" id="navbarNav">
             <a href="index.html"><img src="/static/img/LOGO.svg"
-                    style="width: 150px; margin-left: 4vw;" href="#home"></a>
+                    style="width: 150px; margin-left: 2vw;" href="#home"></a>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" style="text-align: left;">
-                    <form id="searchForm" action="category.html" method="GET" style="margin: 20px 20px 0px 0px; padding: 20px 10px 0px 0px">
-                        <input type="text" name="q" placeholder="Search category"></input>
-                        <input type="submit" value="search"></input>
+                    <form id="searchForm" action="category.html" method="GET" style="margin: 20px 5px 0px 0px; padding-top: 15px;">
+                        <input type="text" name="q" placeholder="Search category" id="searchBar"></input>
+                        <input type="submit" value="Search" id="searchBtn"></input>
                     </form>
-                    <button id="categoryButton" onclick="changeSearch('q', 'category')">category</button>
-                    <button id="priceButton" onclick="changeSearch('price', 'price')">price</button>
-                    <button id="yearButton" onclick="changeSearch('year', 'year')">year</button>
-                    <button id="cityButton" onclick="changeSearch('city', 'city')">city</button>
+                    <div class="dropdown" style="margin-top: 5px;">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Search Category
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <button class="dropdown-item" id="categoryButton" onclick="changeSearch('q', 'category')">Category</button>
+                            <button class="dropdown-item" id="priceButton" onclick="changeSearch('price', 'price')">Price</button>
+                            <button class="dropdown-item" id="yearButton" onclick="changeSearch('year', 'year')">Year</button>
+                            <button class="dropdown-item" id="cityButton" onclick="changeSearch('city', 'city')">City</button>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger yellow-text" href="review.html">Review</a>
@@ -62,6 +93,9 @@
                     <a class="nav-link js-scroll-trigger" href="index.html#about">About Us</a>
                 </li>
                 {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="favorite_car_list">Favorite Car List</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" id="register" href="signup.html">Hello, {{ request.user }}</a>
                 </li>
@@ -91,8 +125,8 @@
         function changeSearch(name, attribute) {
             form = document.getElementById('searchForm');
             form.innerHTML = "";
-            form.innerHTML += "<input type='text' name='" + name + "' placeholder='Search " + attribute + "'></input>";
-            form.innerHTML += "<input type='submit' value='search'></input>";
+            form.innerHTML += "<input type='text' name='" + name + "' placeholder='Search " + attribute + "' id='searchBar'></input>";
+            form.innerHTML += "<input type='submit' value='Search' id='searchBtn'></input>";
         }
     </script>
 </body>

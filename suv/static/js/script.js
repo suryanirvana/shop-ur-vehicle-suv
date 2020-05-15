@@ -15,7 +15,11 @@ function articles() {
                     '<div class="row articleBox">' +
                     '<h1 class="articleTitle" style="margin-left: 0; width: 100%;">' + article[i]['title'] + '</h1>' +
 					'<h2 class="articleSubTitle" style="margin-left: 0; width: 100%;">' + article[i]['date'] + '</h2>' +
-					'<p class="articleText">' + article[i]['content'] + '</p>'
+                    '<p class="articleText" style="width: 100%;">' + article[i]['content'] + '</p>' +
+                    '<br>' +
+                    '<p style="margin:0;">Likes: </p>' +
+				    "<p id='like" + article[i]['id'] + "' style='margin: 0; font-weight: bold;'></p>" +
+				    "<button class='btn' type='button' onclick='likearticles(" + article[i]['id'] + ")' id='likeBtn" + article[i]['id'] + "' style='padding: 0; margin-left: 7px; font-weight: bold; color:#40D0CE;'>Like</button>"
                 )
             }
         }

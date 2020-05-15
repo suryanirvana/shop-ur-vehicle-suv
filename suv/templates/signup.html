@@ -19,18 +19,18 @@
         }
         #logOut, #signUp {
             width: 20%;
-            margin-left: 337px;
-            margin-right: 337px;
+            /* margin-left: 337px;
+            margin-right: 337px; */
             margin-bottom: 5px; 
 
             background-image: linear-gradient(to right,#40D0CE,#1C2E7C); 
             border-radius: 50px; color: #F0FAF9; 
             box-shadow: -3px -3px 3px 0 rgba(255,255,255,0.7), 3px 3px 3px 0 rgba(0,0,0,0.2);
         }
-        #logOut {
+        /* #logOut {
            margin-left: 345px;
            margin-right: 345px; 
-        }
+        } */
         #logOut:hover, #signUp:hover {
             background-image: linear-gradient(to left,#40D0CE,#1C2E7C); 
             box-shadow: inset 3px 3px 3px 0 rgba(0,0,0,0.2);
@@ -41,7 +41,7 @@
         input{
             padding: 5px;
             padding-left:15px;
-            width: 600px;
+            width: 750px;
             background-color: #D8E7E6;
             border: none;
             font-size: 20px;
@@ -105,14 +105,16 @@
             <h1 class="title text-center" style="color: #40D0CE; font-weight: bold; margin-top: 70px; margin-bottom: 20px; font-size: 60px;" id="welcome">Welcome, {{ request.user }}!</h1>
             <img src="{{user.profile.profileImage}}" class="img-fluid align-middle" style="width: 200px; border-radius: 100px;" id="profile">
             <br>
-            <a href="logout/"><button type="submit" class="btn align-middle" id="logOut">Log Out</button></a>
+            <div class="text-center" style="width: 100%;">
+                <a href="logout/"><button type="submit" class="btn align-middle" id="logOut">Log Out</button></a>
+            </div>
             <a href="/"><h1 class="text-center" id="homepage">Homepage</h1></a>
             {% else %}
             <h1 class="text-center" style="color: #40D0CE; font-weight: bold; margin-top: 70px; margin-bottom: 20px; font-size: 40px;">CREATE A NEW ACCOUNT</h1>
             <form method="post" >
                 {% csrf_token %}
                 {{ form.as_p }}
-                <div class="col-md-12">
+                <div class="text-center" style="width: 100%;">
                     <a href="index.html"><button class="btn align-middle" id="signUp">SIGN UP</button></a>
                 </div>
             </form>

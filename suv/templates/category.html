@@ -17,12 +17,12 @@
 {% block content %}
 <body style="overflow-x:hidden; background-color:#D8E7E6;">
 	
-	<div class="row">
+	<div class="row" >
 		<h1 class="title3">CATEGORY</h1>
 		<div class="rectangle"></div>
 	</div>
 	
-	<div class="row home1">
+	<div class="row home1" style="margin-top:10vh">
 		<h1 class="title3" style="width:100vw; text-align:center; margin-left:0; margin-top:15vh; font-size:60px;">{{ title }}</h1>
 	</div>
 
@@ -32,10 +32,10 @@
 		<div class="col-sm-4">
 			<!--image-->
 			<div style="margin-left:1px; margin-right:1px">
-			<div class="categoryBoxUp">
-				<div class="row" style="padding:15px">
+			<div class="categoryBoxUp" style="padding-bottom: 0px;">
+				<!-- <div class="row" style="padding:15px">
 					<img class="similarImg" src="/static/img/testCar.jpg">
-				</div>
+				</div> -->
 				<!--title-->
 				<div class="row" style="margin-left:auto; margin-right:auto;">
 					<h1 class="similarTitle">{{ car.name }}</h1>
@@ -63,17 +63,47 @@
 					</div>
 				</div>
 				<div class="row">
-					<form method="post" action="/favorite_api">
+					<!-- Favorite Button -->
+					<form method="post" action="/favorite_api" style="width: 100%;">
 						{% csrf_token %}
-						<input type="hidden" name='q' value="{{ title }}"></input>
-						{% if car.id in fav_cars %}
-							<input type="hidden" name='unlike' value="{{ car.id }}"></input>
-							<button class="btn btn-info">💔 Remove from favorite</button>
-						{% else %}
-							<input type="hidden" name='like' value="{{ car.id }}"></input>
-							<button class="btn btn-info">💖 Add to favorite</button>
-						{% endif %}
+						<div class="text-center algin-middle" style="width: 100%;">
+							<input type="hidden" name='q' value="{{ title }}"></input>
+							{% if car.id in fav_cars %}
+							<div class="text-center">
+								<input type="hidden" name='unlike' value="{{ car.id }}"></input>
+								<button class="btn btn-info">💔 Remove from favorite</button>
+							</div>
+							{% else %}
+							<div class="text-center">
+								<input type="hidden" name='like' value="{{ car.id }}"></input>
+								<button class="btn btn-info">💖 Add to favorite</button>
+							</div>
+							{% endif %}
+						</div>
 					</form>
+
+					{% if user.is_authenticated %}
+					<form action="/transaction.html" method="POST" style="width: 100%;">
+						{% csrf_token %}
+							<input class="form-control" id="name" type="hidden" name="name" maxlength="255" required
+								value="{{ car.name }}">
+							<input class="form-control" id="car_type" type="hidden" name="car_type" maxlength="255" required
+								value="{{ car.category }}">
+							<input class="form-control" id="year" type="hidden" name="year" maxlength="255" required
+								value="{{ car.year }}">
+							<input class="form-control" id="location" type="hidden" name="location" maxlength="255" required
+								value="{{ car.location }}">	
+							<input class="form-control" id="owner" type="hidden" name="owner" maxlength="255" required
+								value="{{ car.owner }}">
+						<br/>
+
+						<div class="text-center algin-middle" style="width: 100%;">
+							<button type="submit" id="submitBtn" class="btn btn-info">Rent</button>
+						</div>
+					</form>
+					{% else %}
+					<button onclick="top.location = 'signup.html'; ">Rent</button>
+					{% endif %}
 				</div>
 				<br>
 				<br>

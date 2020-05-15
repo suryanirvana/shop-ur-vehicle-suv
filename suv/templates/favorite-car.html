@@ -17,24 +17,81 @@
 {% block content %}
 <body style="overflow-x:hidden; background-color:#D8E7E6;">
 	
-	<div class="row">
-		<h1 class="title3">FAVORITE CAR</h1>
-		<div class="rectangle"></div>
+	<div class="form" id="rent">
+		<h1 style="margin-top:25vh;">FAVORITE CAR</h1>
+		<div class="line" style="margin-bottom: 10vh;"></div>
 	</div>
 	
 	{% for car in cars%}
-		<div style="margin:10vh;">
-			<h3 class="similarTitle">{{ car.name }}</big>
-			<li/>Category : {{ car.category.car_type }}
-			</li>Price : {{ car.price }}
-
-			<br/>
-			<form method="post" action="/favorite_api">
-				{% csrf_token %}
-				<input type="hidden" name='unlike' value="{{ car.id }}"></input>
-				<button class="btn btn-info">💔 Remove from favorite</button>
-			</form>
+	<div class="col-sm-4">
+		<!--image-->
+		<div style="margin-left:1px; margin-right:1px">
+		<div class="categoryBoxUp">
+			<!-- <div class="row" style="padding:15px">
+				<img class="similarImg" src="/static/img/testCar.jpg">
+			</div> -->
+			<!--title-->
+			<div class="row" style="margin-left:auto; margin-right:auto;">
+				<h1 class="similarTitle">{{ car.name }}</h1>
+				<h2 class="similarSubTitle">{{ car.category.car_type }} - {{ car.year }}</h2>
+			</div>
+			<!--dots-->
+			<div class="row" style="padding-left:15px;">
+				<div class="dot">
+					<h4 class="type">{{ car.category.car_type }}</h4>
+				</div>
+			</div>
+			<div class="row" style="padding-left:15px">
+				<div class="dot">
+					<h4 class="type">{{ car.city }}</h4>
+				</div>
+			</div>
+			<div class="row" style="padding-left:15px;">
+				<div class="dot">
+					<h4 class="type">Rp {{ car.price }}</h4>
+				</div>
+			</div>
+			<div class="row" style="padding-left:15px">
+				<div class="dot">
+					<h4 class="type">{{ car.username }}</h4>
+				</div>
+			</div>
+			<div class="row" style="margin-left: 6vw; margin-right: 6vw; margin-top: 2vw;">
+				<!-- Favorite Button -->
+				<form method="post" action="/favorite_api" style="width: 100%;">
+					{% csrf_token %}
+					<div class="text-center algin-middle" style="width: 100%;">
+						<div class="text-center">
+							<input type="hidden" name='unlike' value="{{ car.id }}"></input>
+							<button class="btn btn-info">💔 Remove from favorite</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
+		<div class="collapse categoryBoxDown" id="collapseExample{{car.id}}">
+			<div class="row" style="text-align:center; margin-top:30px; padding:0;">
+				<span class="fa fa-star medium checked"></span>
+				<span class="fa fa-star medium checked"></span>
+				<span class="fa fa-star medium checked"></span>
+				<span class="fa fa-star medium checked"></span>
+				<span class="fa fa-star medium checked"></span>
+			</div>
+			<div class="row" style="padding-right:30px; padding-left:30px;">
+				<p class="reviewText" style="color:#F0FAF9;">
+					“Lorem ipsum dolor sit 
+					amet, consectetur 
+					adipiscing elit,”
+				</p>
+			</div>
+		</div>	
+		<div class="reviewCollapse">
+			<a class="reviewText" style="color:#F0FAF9;" data-toggle="collapse" href="#collapseExample{{car.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+				Review
+			</a>
+		</div>
+		</div>
+	</div>
 	{% endfor %}
 
 	<br><br><br><br><br><br><br><br>

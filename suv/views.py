@@ -65,7 +65,7 @@ def transaction(request):
 
         type_car = Category.objects.get_or_create(car_type=req['car_type'])[0]
         type_car.save()
-        new_car = Transaction.objects.create(name=req['name'],category=type_car,year = req['year'],city = req['location'],date=datetime.datetime.today())
+        new_car = Transaction.objects.create(name=req['name'],user=request.user,category=type_car,year = req['year'],city = req['location'],date=datetime.datetime.today())
         new_car.save()
         return redirect('/transaction.html')
     else:
@@ -85,9 +85,9 @@ def category(request):
     all_fav = FavoriteCar.objects.all().values()
     db = []
     for i in all_fav:
-        if i['user_id'] == request.user.id:
+        if (i['user_id'] == request.user.id):
             db.append(i['car_id'])
-    #Handle if no query is passed
+    # Handle if no query is passed
     if 'q' not in req:
         response = {'title':'No matching car found.','car_list':[]}
         return render(request,'category.html',response)
@@ -102,12 +102,12 @@ def category(request):
         car_all[i]['category'] = Category.objects.get(pk=car_all[i]['category_id']).car_type
 
     #List all cars that fit the category
+    trans_list = set([i['name'] for i in Transaction.objects.all().values() if i['user_id'] == request.user.id])
+
     for i in car_all:
-        try:
-            if i['category'].lower() == req['q'].lower():
-                car_list.append(i)
-        except BaseException:
-            pass
+        car_obj = Car.objects.get(pk=i['id'])
+        if (i['category'].lower() == req['q'].lower()) and (car_obj.name not in trans_list):
+            car_list.append(i)
 
     #If there is no car, then say no matching cars
     if (not car_list):
