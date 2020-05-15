@@ -375,7 +375,7 @@ class FunctionalTest(LiveServerTestCase):
         date = "2017-12-11"
         content = "A new cheap car is for rent."
         
-        article = Article.objects.create(id=1,title=title,date = date, content = content)
+        article = Article.objects.create(title=title,date = date, content = content)
 
         super().setUp()
         chrome_options = webdriver.ChromeOptions()
@@ -390,36 +390,11 @@ class FunctionalTest(LiveServerTestCase):
         self.driver.quit()
         super().tearDown()
 
-    def test_user_register_then_login_then_like_article_then_logout(self) :
+    def test_user_register_then_login_then_logout(self) :
         self.driver.get(self.live_server_url)
         response_content = self.driver.page_source
 
         self.assertIn('Register', response_content)
-
-        time.sleep(5)
-
-        # Test for creating new article
-        self.driver.find_element_by_id('articleBtn').click()
-
-        title = 'FunctionalTest'
-        date = '2020-12-12'
-        content = 'FunctionalTest Content'
-
-        time.sleep(5)
-
-        for i in title:
-            self.driver.find_element_by_id('id_title').send_keys(i)
-            time.sleep(0.1)
-
-        for i in date:
-            self.driver.find_element_by_id('id_date').send_keys(i)
-            time.sleep(0.1)
-
-        for i in content:
-            self.driver.find_element_by_id('id_content').send_keys(i)
-            time.sleep(0.1)
-        
-        self.driver.find_element_by_id('submitBtnArticle').click()
 
         time.sleep(5)
 
@@ -483,27 +458,9 @@ class FunctionalTest(LiveServerTestCase):
         response_content = self.driver.page_source
         self.assertIn('FunctionalTest', response_content)
 
-        # Test for like article
-        self.driver.find_element_by_id('articleBtn').click()
-
-        time.sleep(5)
-
-        # try:
-        #     self.driver.find_element_by_id('likeBtn2').click()
-        # except:
-        self.driver.find_element_by_id('likeBtn1').click()
-
-        response_content = self.driver.page_source
-        self.assertIn('Likes: ', response_content)
-        self.assertIn('1', response_content)
-
-        time.sleep(5)
-
-        # Test when user wants to log out
         self.driver.find_element_by_id('register').click()
 
-        time.sleep(5)
-
+        # Test when user wants to log out
         self.driver.find_element_by_id('logOut').click()
 
         time.sleep(5)
@@ -526,8 +483,6 @@ class FunctionalTest(LiveServerTestCase):
         
         self.driver.find_element_by_id('logIn').click()
 
-        time.sleep(5)
-
         self.driver.find_element_by_id('username').send_keys("FunctionalTest")
         self.driver.find_element_by_id('password').send_keys("FunctionalTest")
 
@@ -535,7 +490,44 @@ class FunctionalTest(LiveServerTestCase):
 
         self.driver.find_element_by_id('logIn').click()
 
-        time.sleep(5)
-
         response_content = self.driver.page_source
         self.assertIn("Invalid username or password", response_content)
+    
+    def test_create_article_return_article(self) :
+        self.driver.get(self.live_server_url)
+        response_content = self.driver.page_source
+
+        self.assertIn('Article', response_content)
+
+        time.sleep(5)
+
+        # Test when user signing up a new account
+        self.driver.find_element_by_id('articleBtn').click()
+
+        title = 'FunctionalTest'
+        date = '2020-12-12'
+        content = 'FunctionalTest Content'
+
+        time.sleep(5)
+
+        for i in title:
+            self.driver.find_element_by_id('id_title').send_keys(i)
+            time.sleep(0.1)
+
+        for i in date:
+            self.driver.find_element_by_id('id_date').send_keys(i)
+            time.sleep(0.1)
+
+        for i in content:
+            self.driver.find_element_by_id('id_content').send_keys(i)
+            time.sleep(0.1)
+        
+        self.driver.find_element_by_id('submitBtn').click()
+
+        time.sleep(5)  
+
+        response_content = self.driver.page_source
+
+        self.assertIn("FunctionalTest", response_content)
+        self.assertIn("2020-12-12", response_content)
+        self.assertIn("FunctionalTest Content", response_content)
